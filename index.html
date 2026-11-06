@@ -108,26 +108,48 @@
                 const card = document.createElement('div');
                 card.className = "bg-slate-800 border border-slate-700/80 rounded-xl p-3.5 space-y-2 shadow-sm hover:border-slate-600 transition";
                 
-                card.innerHTML = `
-                    <div class="flex items-start justify-between space-x-3">
-                        <div class="flex-1 text-sm text-slate-200 break-words leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}">
-                            ${escapeHtml(text)}
-                        </div>
-                        <div class="flex items-center space-x-1.5 shrink-0">
-                            <button onclick="copySnippet('${escapeQuote(text)}')" class="bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-2.5 py-1.5 rounded-lg transition active:scale-95">
-                                Copy
-                            </button>
-                            <button onclick="deleteSnippet(${actualIndex}, '${escapeQuote(text)}')" class="text-slate-500 hover:text-red-400 p-1.5 transition" title="Padam">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center pt-1 border-t border-slate-700/40">
-                        <button onclick="toggleExpand(${actualIndex})" class="text-xs text-purple-400 hover:text-purple-300 font-medium transition flex items-center space-x-1">
-                            <span>${isExpanded ? '▲ Tutup (Tunjuk Sikit)' : '▼ Lihat Penuh'}</span>
-                        </button>
-                    </div>
-                `;
+                // Bahagian utama kad
+                const topRow = document.createElement('div');
+                topRow.className = "flex items-start justify-between space-x-3";
+
+                const textDiv = document.createElement('div');
+                textDiv.className = `flex-1 text-sm text-slate-200 break-words leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`;
+                textDiv.textContent = text; // Selamat dari isu petikan dan HTML
+
+                const actionDiv = document.createElement('div');
+                actionDiv.className = "flex items-center space-x-1.5 shrink-0";
+
+                // Butang Copy
+                const copyBtn = document.createElement('button');
+                copyBtn.className = "bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-2.5 py-1.5 rounded-lg transition active:scale-95";
+                copyBtn.innerText = "Copy";
+                copyBtn.onclick = () => copySnippet(text);
+
+                // Butang Padam
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = "text-slate-500 hover:text-red-400 p-1.5 transition";
+                deleteBtn.title = "Padam";
+                deleteBtn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`;
+                deleteBtn.onclick = () => deleteSnippet(actualIndex, text);
+
+                actionDiv.appendChild(copyBtn);
+                actionDiv.appendChild(deleteBtn);
+                topRow.appendChild(textDiv);
+                topRow.appendChild(actionDiv);
+
+                // Bahagian Bawah (Toggle Expand)
+                const bottomRow = document.createElement('div');
+                bottomRow.className = "flex justify-between items-center pt-1 border-t border-slate-700/40";
+
+                const expandBtn = document.createElement('button');
+                expandBtn.className = "text-xs text-purple-400 hover:text-purple-300 font-medium transition flex items-center space-x-1";
+                expandBtn.innerText = isExpanded ? '▲ Tutup (Tunjuk Sikit)' : '▼ Lihat Penuh';
+                expandBtn.onclick = () => toggleExpand(actualIndex);
+
+                bottomRow.appendChild(expandBtn);
+
+                card.appendChild(topRow);
+                card.appendChild(bottomRow);
                 listContainer.appendChild(card);
             });
         }
@@ -180,7 +202,6 @@
         }
 
         async function deleteSnippet(index, text) {
-            // Kotak pengesahan keselamatan sebelum padam
             const confirmDelete = confirm("Adakah Ikmal pasti mahu memadam snippet ini dari Cloud?");
             if (!confirmDelete) return;
 
@@ -220,14 +241,6 @@
                 toast.classList.remove('opacity-100');
                 toast.classList.add('opacity-0');
             }, 1500);
-        }
-
-        function escapeHtml(string) {
-            return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        function escapeQuote(string) {
-            return string.replace(/'/g, "\\'").replace(/"/g, '&quot;');
         }
 
         fetchSnippets();
