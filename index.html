@@ -768,7 +768,7 @@
     </div>
 
     <script>
-        // State data produk
+        // State data produk (ID 1 hingga 7)
         const products = {
             1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
             2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
@@ -779,7 +779,7 @@
             7: { name: "Aik Chong Cappuccino", price: 5.00, stock: 10, qty: 0, cartQty: 0 }
         };
 
-        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets (Apps Script)
+        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets (Apps Script URL anda)
         async function fetchSheetData() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxSzG1Oi0QyrC7fIYns1N94szUKBE7zfSrdpevmtRENMZ35JYTuDikVecgGExhdDsD7/exec';
             try {
@@ -807,7 +807,7 @@
             }
         }
 
-        // Panggil fungsi tarik data apabila web dibuka (dan ulangi setiap 30 saat jika mahu *live update*)
+        // Panggil fungsi tarik data apabila web dibuka dan ulang setiap 30 saat
         fetchSheetData();
         setInterval(fetchSheetData, 30000);
 
