@@ -72,7 +72,6 @@
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwedgtVkOfsUy1jVCQNW5CEzPNedE9ECPT4jtXPyHN9d429EbnhgD09C6dttkUkEsk--w/exec";
 
         let snippets = [];
-        // Set untuk simpan ID kad mana yang sedang dibuka (expanded)
         let expandedItems = new Set();
 
         async function fetchSnippets() {
@@ -181,7 +180,9 @@
         }
 
         async function deleteSnippet(index, text) {
-            if (!confirm("Padam snippet ini dari Cloud?")) return;
+            // Kotak pengesahan keselamatan sebelum padam
+            const confirmDelete = confirm("Adakah Ikmal pasti mahu memadam snippet ini dari Cloud?");
+            if (!confirmDelete) return;
 
             try {
                 await fetch(WEB_APP_URL, {
