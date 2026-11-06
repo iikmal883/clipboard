@@ -47,7 +47,7 @@
         /* Header */
         header {
             background-color: var(--light-orange);
-            padding: 15px 20px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -62,8 +62,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 38px;
-            width: 50px;
+            height: 42px;
+            width: 55px;
         }
 
         .logo-box img {
@@ -73,59 +73,56 @@
         }
 
         h1 {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--dark-orange);
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
         .time-box {
-            font-size: 10px;
+            font-size: 9px;
             background: white;
-            padding: 5px 8px;
+            padding: 4px 6px;
             border-radius: 6px;
             color: var(--gray-text);
             border: 1px solid var(--border-color);
             text-align: right;
+            line-height: 1.2;
         }
 
         /* Main Content */
         .content {
-            padding: 20px;
+            padding: 15px;
         }
 
+        /* 2 Column Grid for Products */
         .products-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .product-card {
             background: #FAFAFA;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .product-header {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
+            gap: 8px;
         }
 
         .product-image-box {
             width: 100%;
-            height: 160px;
+            height: 100px;
             background: white;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border-color);
-            padding: 10px;
+            padding: 5px;
         }
 
         .product-image-box img {
@@ -135,21 +132,28 @@
         }
 
         .product-info h3 {
-            font-size: 15px;
+            font-size: 12px;
             color: var(--text-color);
+            line-height: 1.2;
+            height: 28px;
+            overflow: hidden;
+        }
+
+        .product-details-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .product-info .price {
-            font-size: 14px;
+            font-size: 12px;
             color: var(--dark-orange);
             font-weight: bold;
-            margin-top: 2px;
         }
 
         .stock-label {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--gray-text);
-            font-weight: 500;
         }
 
         /* Quantity Controls */
@@ -159,32 +163,26 @@
             justify-content: space-between;
             background: white;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 6px 10px;
+            border-radius: 6px;
+            padding: 3px 6px;
         }
 
         .qty-btn {
             background: var(--light-orange);
             border: none;
             color: var(--dark-orange);
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
-        }
-
-        .qty-btn:active {
-            background: var(--accent-orange);
-            color: white;
+            font-size: 14px;
         }
 
         .qty-display {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
-            width: 40px;
+            width: 25px;
             text-align: center;
         }
 
@@ -192,12 +190,12 @@
             background-color: var(--accent-orange);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 7px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            font-size: 13px;
+            font-size: 11px;
             transition: 0.2s;
         }
 
@@ -207,56 +205,103 @@
 
         /* Cart Summary Section */
         .cart-section {
-            margin-top: 25px;
+            margin-top: 20px;
             border-top: 2px dashed var(--border-color);
             padding-top: 15px;
         }
 
         .cart-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--dark-orange);
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 6px;
+            font-size: 12px;
+            margin-bottom: 5px;
             color: var(--gray-text);
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             color: var(--text-color);
-            margin: 12px 0;
+            margin: 10px 0;
             border-top: 1px solid var(--border-color);
-            padding-top: 8px;
+            padding-top: 6px;
         }
 
         .checkout-btn {
             background-color: #25D366;
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
             width: 100%;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             transition: 0.2s;
         }
 
         .checkout-btn:hover {
             background-color: #1EBE5D;
+        }
+
+        /* Floating Cart Button at Bottom Right */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark-orange);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+            z-index: 99;
+            transition: transform 0.2s;
+            border: 2px solid white;
+        }
+
+        .floating-cart:active {
+            transform: scale(0.92);
+        }
+
+        .floating-cart svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #25D366;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
         }
 
         /* Modal Popup */
@@ -287,7 +332,7 @@
         }
 
         .modal-header {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: var(--dark-orange);
             margin-bottom: 15px;
@@ -318,10 +363,10 @@
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
+            padding: 9px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             outline: none;
             background: var(--bg-color);
         }
@@ -331,18 +376,18 @@
         }
 
         .delivery-note {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--dark-orange);
             background: var(--light-orange);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 6px;
             display: none;
             border: 1px dashed var(--accent-orange);
         }
 
         .modal-footer {
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
             gap: 10px;
         }
@@ -351,22 +396,24 @@
             background: #E0E0E0;
             color: #333;
             border: none;
-            padding: 10px;
+            padding: 9px;
             border-radius: 8px;
             flex: 1;
             font-weight: 600;
             cursor: pointer;
+            font-size: 12px;
         }
 
         .btn-confirm {
             background: var(--accent-orange);
             color: white;
             border: none;
-            padding: 10px;
+            padding: 9px;
             border-radius: 8px;
             flex: 1;
             font-weight: 600;
             cursor: pointer;
+            font-size: 12px;
         }
 
         .btn-confirm:hover {
@@ -383,11 +430,12 @@
                 <img src="https://i.ibb.co/pjBhkBtT/LOGO-KEDAI-RAMEN.png" alt="Logo Kedai Ramen">
             </div>
             <h1>KEDAI RAMEN</h1>
-            <div class="time-box" id="malaysiaTime">Loading Time...</div>
+            <div class="time-box" id="malaysiaTime">Loading...</div>
         </header>
 
         <!-- Content -->
         <div class="content">
+            <!-- 2 Columns Products Grid -->
             <div class="products-grid">
                 
                 <!-- Ramen 1 (Buldak Hot Chicken) -->
@@ -395,12 +443,12 @@
                     <div class="product-image-box">
                         <img src="https://i.ibb.co/qFJLBRM2/BULDAK-HOT-CHICKEN.png" alt="Buldak Hot Chicken">
                     </div>
-                    <div class="product-header">
-                        <div class="product-info">
-                            <h3>Ramen 1 (Buldak Hot Chicken)</h3>
-                            <div class="price">RM 15.00</div>
+                    <div class="product-info">
+                        <h3>Ramen 1 (Hot Chicken)</h3>
+                        <div class="product-details-row">
+                            <span class="price">RM 15.00</span>
+                            <span class="stock-label">Stock: <span id="stock1">10</span></span>
                         </div>
-                        <div class="stock-label">Stock: <span id="stock1">10</span></div>
                     </div>
                     <div class="qty-control">
                         <button class="qty-btn" onclick="updateQty(1, -1)">-</button>
@@ -415,12 +463,12 @@
                     <div class="product-image-box">
                         <img src="https://i.ibb.co/dsFvmrTf/BULDAK-CHEESE.png" alt="Buldak Cheese">
                     </div>
-                    <div class="product-header">
-                        <div class="product-info">
-                            <h3>Ramen 2 (Buldak Cheese)</h3>
-                            <div class="price">RM 20.00</div>
+                    <div class="product-info">
+                        <h3>Ramen 2 (Cheese)</h3>
+                        <div class="product-details-row">
+                            <span class="price">RM 20.00</span>
+                            <span class="stock-label">Stock: <span id="stock2">5</span></span>
                         </div>
-                        <div class="stock-label">Stock: <span id="stock2">5</span></div>
                     </div>
                     <div class="qty-control">
                         <button class="qty-btn" onclick="updateQty(2, -1)">-</button>
@@ -433,10 +481,10 @@
             </div>
 
             <!-- Cart Section -->
-            <div class="cart-section">
+            <div class="cart-section" id="cartSection">
                 <div class="cart-title">Your Cart Summary</div>
                 <div id="cartItemsList">
-                    <div style="font-size: 13px; color: var(--gray-text);">Cart is empty.</div>
+                    <div style="font-size: 12px; color: var(--gray-text);">Cart is empty.</div>
                 </div>
                 <div class="cart-total">
                     <span>Total:</span>
@@ -445,6 +493,14 @@
                 <button class="checkout-btn" onclick="openCheckoutModal()">Proceed to Checkout (WhatsApp)</button>
             </div>
         </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="scrollToCart()" title="View Cart">
+        <div class="cart-badge" id="cartBadge">0</div>
+        <svg viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
     </div>
 
     <!-- Modal Popup for Checkout Details -->
@@ -490,10 +546,10 @@
                 </div>
             </div>
 
-            <div style="margin-top: 15px; font-size: 13px; font-weight: bold; color: var(--dark-orange);">
+            <div style="margin-top: 12px; font-size: 12px; font-weight: bold; color: var(--dark-orange);">
                 Order Confirmation Summary:
             </div>
-            <div id="modalCartSummary" style="font-size: 12px; color: var(--gray-text); margin-top: 5px; background: var(--bg-color); padding: 8px; border-radius: 6px;">
+            <div id="modalCartSummary" style="font-size: 11px; color: var(--gray-text); margin-top: 4px; background: var(--bg-color); padding: 8px; border-radius: 6px;">
                 <!-- Summary inserted here -->
             </div>
 
@@ -515,7 +571,7 @@
         function updateMalaysiaTime() {
             const options = { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const timeString = new Intl.DateTimeFormat('en-US', options).format(new Date());
-            document.getElementById('malaysiaTime').innerText = "Malaysia Time: " + timeString;
+            document.getElementById('malaysiaTime').innerText = "Malaysia Time:\n" + timeString;
         }
         setInterval(updateMalaysiaTime, 1000);
         updateMalaysiaTime();
@@ -547,12 +603,14 @@
             const cartList = document.getElementById('cartItemsList');
             let html = '';
             let total = 0;
+            let totalItemsCount = 0;
             let hasItems = false;
 
             for (let id in products) {
                 let item = products[id];
                 if (item.cartQty > 0) {
                     hasItems = true;
+                    totalItemsCount += item.cartQty;
                     let subtotal = item.price * item.cartQty;
                     total += subtotal;
                     html += `<div class="cart-item"><span>• ${item.name} x ${item.cartQty}</span><span>RM ${subtotal.toFixed(2)}</span></div>`;
@@ -560,12 +618,18 @@
             }
 
             if (!hasItems) {
-                cartList.innerHTML = '<div style="font-size: 13px; color: var(--gray-text);">Cart is empty.</div>';
+                cartList.innerHTML = '<div style="font-size: 12px; color: var(--gray-text);">Cart is empty.</div>';
             } else {
                 cartList.innerHTML = html;
             }
 
             document.getElementById('cartTotalPrice').innerText = `RM ${total.toFixed(2)}`;
+            document.getElementById('cartBadge').innerText = totalItemsCount;
+        }
+
+        // Scroll to cart section
+        function scrollToCart() {
+            document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Open Modal Checkout
@@ -576,7 +640,6 @@
                 return;
             }
 
-            // Generate summary inside modal
             let summaryHtml = '';
             for (let id in products) {
                 if (products[id].cartQty > 0) {
@@ -640,14 +703,13 @@
             let deliveryText = method;
             if (method === 'COD') {
                 deliveryText += ` (${block})`;
-                subtotal += 0.50; // Add COD charge
+                subtotal += 0.50; 
             } else if (method === 'Pickup') {
                 deliveryText += ` (Meet at DOBI BLOK A12)`;
             }
 
             orderText += `\nCustomer Name: ${name}\nPhone: ${phone}\nKaedah penghantaran: ${deliveryText}\n*Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}*\n\nTerima kasih! Sila sahkan pesanan saya.`;
 
-            // WhatsApp number configuration
             const waNumber = "60172150138";
             const encodedUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(orderText)}`;
             
