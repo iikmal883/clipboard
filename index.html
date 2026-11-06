@@ -47,60 +47,60 @@
         /* Header */
         header {
             background-color: var(--light-orange);
-            padding: 12px 15px;
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--border-color);
+            gap: 10px;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            height: 56px;
+            height: 64px;
         }
 
         .logo-container img {
-            height: 56px;
+            height: 64px;
             width: auto;
             object-fit: contain;
         }
 
-        h1 {
-            font-size: 14px;
+        .header-title {
+            font-size: 15px;
             color: var(--dark-orange);
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            display: none; /* Disembunyikan kerana logo besar sudah mewakili jenama */
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-align: center;
+            flex: 1;
+            text-transform: uppercase;
         }
 
-        /* Enhanced Date & Time Box with Slow Pulsing Green Indicator */
+        /* Aesthetic Date & Time Box */
         .time-box {
-            font-size: 9px;
             background: white;
-            padding: 6px 10px;
-            border-radius: 8px;
-            color: var(--gray-text);
+            padding: 8px 12px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             text-align: right;
-            line-height: 1.3;
+            box-shadow: 0 4px 12px rgba(232, 93, 4, 0.08);
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
             gap: 2px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            min-width: 120px;
+            min-width: 130px;
         }
 
-        .time-indicator-row {
+        .time-header {
             display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: flex-end;
+            gap: 6px;
         }
 
         .pulse-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background-color: #25D366;
             border-radius: 50%;
             animation: pulseSlow 2s infinite ease-in-out;
@@ -108,8 +108,21 @@
 
         @keyframes pulseSlow {
             0% { opacity: 0.3; transform: scale(0.85); }
-            50% { opacity: 1; transform: scale(1.15); }
+            50% { opacity: 1; transform: scale(1.2); }
             100% { opacity: 0.3; transform: scale(0.85); }
+        }
+
+        .date-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--dark-orange);
+        }
+
+        .time-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 0.3px;
         }
 
         /* Main Content */
@@ -451,13 +464,13 @@
             <div class="logo-container">
                 <img src="https://i.ibb.co/pjBhkBtT/LOGO-KEDAI-RAMEN.png" alt="Logo Kedai Ramen">
             </div>
-            <h1>KEDAI RAMEN</h1>
-            <div class="time-box" id="malaysiaTimeBox">
-                <div class="time-indicator-row">
+            <div class="header-title">Kedai Ramen</div>
+            <div class="time-box">
+                <div class="time-header">
+                    <span class="date-text" id="malaysiaDate">Loading...</span>
                     <span class="pulse-dot"></span>
-                    <span id="malaysiaDate" style="font-weight: bold; color: var(--dark-orange);">Loading Date...</span>
                 </div>
-                <span id="malaysiaTime">Loading Time...</span>
+                <div class="time-text" id="malaysiaTime">Loading...</div>
             </div>
         </header>
 
@@ -608,11 +621,9 @@
         function updateMalaysiaDateTime() {
             const now = new Date();
             
-            // Format Date
             const dateOptions = { timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: 'short', day: 'numeric' };
             const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
             
-            // Format Time
             const timeOptions = { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const timeString = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
             
