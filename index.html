@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ikmal Tech Quick Clipboard</title>
-    <!-- Tailwind CSS for modern mobile-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            -webkit-tap-highlight-color: transparent;
-        }
+        body { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
@@ -19,9 +16,9 @@
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-lg font-bold tracking-wide text-purple-400">Ikmal Tech Solution</h1>
-                <p class="text-xs text-slate-400">Quick Clipboard Manager</p>
+                <p class="text-xs text-slate-400">Live Cloud Clipboard</p>
             </div>
-            <span class="bg-purple-900/60 text-purple-300 text-xs px-2.5 py-1 rounded-full font-medium border border-purple-700/50">1-Tap Copy</span>
+            <span id="syncStatus" class="bg-purple-900/60 text-purple-300 text-xs px-2.5 py-1 rounded-full font-medium border border-purple-700/50">Syncing...</span>
         </div>
     </header>
 
@@ -31,7 +28,7 @@
         <!-- Toast Notification -->
         <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center space-x-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <span id="toast-text">Copied to clipboard!</span>
+            <span id="toast-text">Berjaya disalin!</span>
         </div>
 
         <!-- Add New Snippet Form -->
@@ -41,14 +38,11 @@
                 <textarea id="snippetInput" rows="2" placeholder="Taip atau paste teks cepat di sini..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 resize-none"></textarea>
                 
                 <div class="flex space-x-2">
-                    <!-- Butang Auto-Paste dari Clipboard Phone -->
                     <button onclick="pasteFromClipboard()" class="flex-1 bg-slate-700 hover:bg-slate-600 active:scale-[0.98] transition text-purple-300 font-medium text-xs py-2.5 rounded-lg shadow-sm border border-slate-600">
                         📋 Ambil dari Clipboard
                     </button>
-                    
-                    <!-- Butang Simpan -->
-                    <button onclick="addSnippet()" class="flex-1 bg-purple-600 hover:bg-purple-500 active:scale-[0.98] transition text-white font-medium text-xs py-2.5 rounded-lg shadow-sm">
-                        Simpan Snippet
+                    <button onclick="addSnippet()" id="saveBtn" class="flex-1 bg-purple-600 hover:bg-purple-500 active:scale-[0.98] transition text-white font-medium text-xs py-2.5 rounded-lg shadow-sm">
+                        Simpan ke Cloud
                     </button>
                 </div>
             </div>
@@ -57,30 +51,35 @@
         <!-- Snippets List Section -->
         <div class="space-y-2">
             <div class="flex justify-between items-center px-1">
-                <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Saved Snippets</h2>
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Cloud Snippets</h2>
                 <span id="countBadge" class="text-xs text-slate-500">0 items</span>
             </div>
             
             <div id="snippetsList" class="space-y-2.5">
-                <!-- Dynamically injected items -->
+                <div class="text-center py-8 text-slate-500 text-sm">Memuatkan data dari Google Sheets...</div>
             </div>
         </div>
 
     </main>
 
-    <!-- JavaScript Logic -->
     <script>
-        const defaultSnippets = [
-            "Hello! Welcome to Ikmal Tech Solution. How can I help with your laptop today?",
-            "RM50 deposit received, thank you! We will proceed with the repair.",
-            "Please send your laptop model and exact issue description.",
-            "Your device is ready for self-collection at Blok A12."
-        ];
+        // URL Apps Script Ikmal sudah disetkan di sini:
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwedgtVkOfsUy1jVCQNW5CEzPNedE9ECPT4jtXPyHN9d429EbnhgD09C6dttkUkEsk--w/exec";
 
-        let snippets = JSON.parse(localStorage.getItem('ikmal_clipboard_snippets')) || defaultSnippets;
+        let snippets = [];
 
-        function saveToLocalStorage() {
-            localStorage.setItem('ikmal_clipboard_snippets', JSON.stringify(snippets));
+        async function fetchSnippets() {
+            const statusBadge = document.getElementById('syncStatus');
+            statusBadge.innerText = "Syncing...";
+            try {
+                const response = await fetch(WEB_APP_URL);
+                snippets = await response.json();
+                renderSnippets();
+                statusBadge.innerText = "Online Live";
+            } catch (err) {
+                console.error("Gagal ambil data:", err);
+                statusBadge.innerText = "Offline Mode";
+            }
         }
 
         function renderSnippets() {
@@ -90,21 +89,24 @@
             countBadge.innerText = `${snippets.length} items`;
 
             if (snippets.length === 0) {
-                listContainer.innerHTML = `<div class="text-center py-8 text-slate-500 text-sm">No snippets saved yet. Add one above!</div>`;
+                listContainer.innerHTML = `<div class="text-center py-8 text-slate-500 text-sm">Tiada snippet tersimpan lagi.</div>`;
                 return;
             }
 
-            snippets.forEach((text, index) => {
+            const reversedSnippets = [...snippets].reverse();
+
+            reversedSnippets.forEach((text, originalIndex) => {
+                const actualIndex = snippets.length - 1 - originalIndex;
                 const card = document.createElement('div');
                 card.className = "bg-slate-800 border border-slate-700/80 rounded-xl p-3.5 flex items-start justify-between space-x-3 shadow-sm hover:border-slate-600 transition";
                 
                 card.innerHTML = `
                     <div class="flex-1 text-sm text-slate-200 break-words leading-relaxed">${escapeHtml(text)}</div>
                     <div class="flex items-center space-x-2 shrink-0">
-                        <button onclick="copySnippet(${index})" class="bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-3 py-1.5 rounded-lg transition active:scale-95">
+                        <button onclick="copySnippet('${escapeQuote(text)}')" class="bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-3 py-1.5 rounded-lg transition active:scale-95">
                             Copy
                         </button>
-                        <button onclick="deleteSnippet(${index})" class="text-slate-500 hover:text-red-400 p-1.5 transition" title="Delete">
+                        <button onclick="deleteSnippet(${actualIndex}, '${escapeQuote(text)}')" class="text-slate-500 hover:text-red-400 p-1.5 transition" title="Padam">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>
@@ -113,7 +115,6 @@
             });
         }
 
-        // Fungsi ambil teks dari clipboard phone secara terus
         async function pasteFromClipboard() {
             try {
                 const text = await navigator.clipboard.readText();
@@ -121,54 +122,66 @@
                     document.getElementById('snippetInput').value = text;
                 }
             } catch (err) {
-                alert('Pelayar web menyekat akses automatik. Sila tap lama-lama pada ruang teks di atas dan pilih "Paste".');
+                alert('Sila tap lama-lama pada ruang teks di atas dan pilih "Paste".');
             }
         }
 
-        function addSnippet() {
+        async function addSnippet() {
             const input = document.getElementById('snippetInput');
             const text = input.value.trim();
             if (!text) return;
 
-            snippets.unshift(text);
-            saveToLocalStorage();
-            input.value = '';
-            renderSnippets();
-        }
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.innerText = "Menyimpan...";
+            saveBtn.disabled = true;
 
-        function deleteSnippet(index) {
-            snippets.splice(index, 1);
-            saveToLocalStorage();
-            renderSnippets();
-        }
-
-        function copySnippet(index) {
-            const textToCopy = snippets[index];
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    showToast();
-                }).catch(err => {
-                    fallbackCopy(textToCopy);
-                });
-            } else {
-                fallbackCopy(textToCopy);
-            }
-        }
-
-        function fallbackCopy(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            document.body.appendChild(textarea);
-            textarea.focus();
-            textarea.select();
             try {
-                document.execCommand('copy');
-                showToast();
+                await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "save", text: text })
+                });
+
+                input.value = '';
+                setTimeout(fetchSnippets, 1500);
             } catch (err) {
-                console.error('Failed to copy', err);
+                alert("Gagal simpan ke cloud.");
+            } finally {
+                saveBtn.innerText = "Simpan ke Cloud";
+                saveBtn.disabled = false;
             }
-            document.body.removeChild(textarea);
+        }
+
+        async function deleteSnippet(index, text) {
+            if (!confirm("Padam snippet ini dari Cloud?")) return;
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "delete", text: text })
+                });
+
+                setTimeout(fetchSnippets, 1500);
+            } catch (err) {
+                alert("Gagal padam.");
+            }
+        }
+
+        function copySnippet(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(showToast);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast();
+            }
         }
 
         function showToast() {
@@ -185,9 +198,11 @@
             return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        (function() {
-            renderSnippets();
-        })();
+        function escapeQuote(string) {
+            return string.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        fetchSnippets();
     </script>
 </body>
 </html>
