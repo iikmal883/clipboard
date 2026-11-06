@@ -615,16 +615,16 @@
                 <div class="category-title">🥤 Drink Powder</div>
                 <div class="products-grid">
                     
-                    <!-- Drink 1 (Cold Horlicks) -->
+                    <!-- Drink 1: Aik Chong Chocolate -->
                     <div class="product-card">
-                        <div class="product-image-box" style="background: #FFF3E4; font-weight: bold; color: var(--dark-orange); font-size: 13px;">
-                            ☕ HORLICKS
+                        <div class="product-image-box" style="background: #FFF3E4; font-weight: bold; color: var(--dark-orange); font-size: 11px; text-align: center; padding: 2px;">
+                            🍫 CHOCOLATE
                         </div>
                         <div class="product-info">
-                            <h3>Cold Horlicks (Sejuk)</h3>
+                            <h3>Aik Chong Chocolate</h3>
                             <div class="product-details-row">
                                 <span class="price">RM 5.00</span>
-                                <span class="stock-label">Stock: <span id="stock5">15</span></span>
+                                <span class="stock-label">Stock: <span id="stock5">12</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -633,6 +633,46 @@
                             <button class="qty-btn" onclick="updateQty(5, 1)">+</button>
                         </div>
                         <button class="add-to-cart-btn" onclick="addToCart(5)">Add to Cart</button>
+                    </div>
+
+                    <!-- Drink 2: Aik Chong Mocha -->
+                    <div class="product-card">
+                        <div class="product-image-box" style="background: #FFF3E4; font-weight: bold; color: var(--dark-orange); font-size: 11px; text-align: center; padding: 2px;">
+                            ☕ MOCHA
+                        </div>
+                        <div class="product-info">
+                            <h3>Aik Chong Mocha</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 5.00</span>
+                                <span class="stock-label">Stock: <span id="stock6">10</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(6, -1)">-</button>
+                            <span class="qty-display" id="qty6">0</span>
+                            <button class="qty-btn" onclick="updateQty(6, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(6)">Add to Cart</button>
+                    </div>
+
+                    <!-- Drink 3: Aik Chong Cappuccino -->
+                    <div class="product-card">
+                        <div class="product-image-box" style="background: #FFF3E4; font-weight: bold; color: var(--dark-orange); font-size: 11px; text-align: center; padding: 2px;">
+                            🥛 CAPPUCCINO
+                        </div>
+                        <div class="product-info">
+                            <h3>Aik Chong Cappuccino</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 5.00</span>
+                                <span class="stock-label">Stock: <span id="stock7">10</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(7, -1)">-</button>
+                            <span class="qty-display" id="qty7">0</span>
+                            <button class="qty-btn" onclick="updateQty(7, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(7)">Add to Cart</button>
                     </div>
 
                 </div>
@@ -728,13 +768,15 @@
     </div>
 
     <script>
-        // State data for products including Instant Noodles & Drink Powder
+        // State data for all products (Instant Noodles + Drink Powder)
         const products = {
             1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
             2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
             3: { name: "Ramen 3 (Buldak Original)", price: 14.00, stock: 8, qty: 0, cartQty: 0 },
             4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 22.00, stock: 6, qty: 0, cartQty: 0 },
-            5: { name: "Cold Horlicks (Sejuk)", price: 5.00, stock: 15, qty: 0, cartQty: 0 }
+            5: { name: "Aik Chong Chocolate", price: 5.00, stock: 12, qty: 0, cartQty: 0 },
+            6: { name: "Aik Chong Mocha", price: 5.00, stock: 10, qty: 0, cartQty: 0 },
+            7: { name: "Aik Chong Cappuccino", price: 5.00, stock: 10, qty: 0, cartQty: 0 }
         };
 
         // Live Malaysia Date & Time
