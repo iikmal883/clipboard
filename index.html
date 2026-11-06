@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramen Shop</title>
+    <title>Kedai Ramen</title>
     <style>
         :root {
             --bg-color: #FFF8EE;
@@ -56,25 +56,33 @@
 
         .logo-box {
             background: white;
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 8px;
-            font-weight: bold;
-            color: var(--dark-orange);
             border: 1px solid var(--border-color);
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38px;
+            width: 50px;
+        }
+
+        .logo-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         h1 {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--dark-orange);
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
         .time-box {
-            font-size: 11px;
+            font-size: 10px;
             background: white;
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 6px;
             color: var(--gray-text);
             border: 1px solid var(--border-color);
@@ -110,20 +118,24 @@
 
         .product-image-box {
             width: 100%;
-            height: 140px;
-            background: var(--light-orange);
+            height: 160px;
+            background: white;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--dark-orange);
-            font-weight: 600;
-            font-size: 16px;
-            border: 1px dashed var(--accent-orange);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+        }
+
+        .product-image-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         .product-info h3 {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-color);
         }
 
@@ -367,7 +379,9 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="logo-box">LOGO</div>
+            <div class="logo-box">
+                <img src="https://i.ibb.co/pjBhkBtT/LOGO-KEDAI-RAMEN.png" alt="Logo Kedai Ramen">
+            </div>
             <h1>KEDAI RAMEN</h1>
             <div class="time-box" id="malaysiaTime">Loading Time...</div>
         </header>
@@ -376,12 +390,14 @@
         <div class="content">
             <div class="products-grid">
                 
-                <!-- Ramen 1 -->
-                <div class="product-card" data-id="1" data-name="Ramen 1 (Shoyu Classic)" data-price="15.00" data-stock="10">
-                    <div class="product-image-box">RAMEN 1</div>
+                <!-- Ramen 1 (Buldak Hot Chicken) -->
+                <div class="product-card">
+                    <div class="product-image-box">
+                        <img src="https://i.ibb.co/qFJLBRM2/BULDAK-HOT-CHICKEN.png" alt="Buldak Hot Chicken">
+                    </div>
                     <div class="product-header">
                         <div class="product-info">
-                            <h3>Ramen 1 (Shoyu Classic)</h3>
+                            <h3>Ramen 1 (Buldak Hot Chicken)</h3>
                             <div class="price">RM 15.00</div>
                         </div>
                         <div class="stock-label">Stock: <span id="stock1">10</span></div>
@@ -394,12 +410,14 @@
                     <button class="add-to-cart-btn" onclick="addToCart(1)">Add to Cart</button>
                 </div>
 
-                <!-- Ramen 2 -->
-                <div class="product-card" data-id="2" data-name="Ramen 2 (Miso Special)" data-price="20.00" data-stock="5">
-                    <div class="product-image-box">RAMEN 2</div>
+                <!-- Ramen 2 (Buldak Cheese) -->
+                <div class="product-card">
+                    <div class="product-image-box">
+                        <img src="https://i.ibb.co/dsFvmrTf/BULDAK-CHEESE.png" alt="Buldak Cheese">
+                    </div>
                     <div class="product-header">
                         <div class="product-info">
-                            <h3>Ramen 2 (Miso Special)</h3>
+                            <h3>Ramen 2 (Buldak Cheese)</h3>
                             <div class="price">RM 20.00</div>
                         </div>
                         <div class="stock-label">Stock: <span id="stock2">5</span></div>
@@ -489,8 +507,8 @@
     <script>
         // State data
         const products = {
-            1: { name: "Ramen 1 (Shoyu Classic)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
-            2: { name: "Ramen 2 (Miso Special)", price: 20.00, stock: 5, qty: 0, cartQty: 0 }
+            1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
+            2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 }
         };
 
         // Live Malaysia Time
