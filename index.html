@@ -535,7 +535,7 @@
                         <div class="product-info">
                             <h3>Ramen 1 (Hot Chicken)</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 15.00</span>
+                                <span class="price" id="price1">RM 15.00</span>
                                 <span class="stock-label">Stock: <span id="stock1">10</span></span>
                             </div>
                         </div>
@@ -555,7 +555,7 @@
                         <div class="product-info">
                             <h3>Ramen 2 (Cheese)</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 20.00</span>
+                                <span class="price" id="price2">RM 20.00</span>
                                 <span class="stock-label">Stock: <span id="stock2">5</span></span>
                             </div>
                         </div>
@@ -575,7 +575,7 @@
                         <div class="product-info">
                             <h3>Ramen 3 (Original)</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 14.00</span>
+                                <span class="price" id="price3">RM 14.00</span>
                                 <span class="stock-label">Stock: <span id="stock3">8</span></span>
                             </div>
                         </div>
@@ -595,7 +595,7 @@
                         <div class="product-info">
                             <h3>Ramen 4 (Quattro)</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 22.00</span>
+                                <span class="price" id="price4">RM 22.00</span>
                                 <span class="stock-label">Stock: <span id="stock4">6</span></span>
                             </div>
                         </div>
@@ -623,7 +623,7 @@
                         <div class="product-info">
                             <h3>Aik Chong Chocolate</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 5.00</span>
+                                <span class="price" id="price5">RM 5.00</span>
                                 <span class="stock-label">Stock: <span id="stock5">12</span></span>
                             </div>
                         </div>
@@ -643,7 +643,7 @@
                         <div class="product-info">
                             <h3>Aik Chong Mocha</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 5.00</span>
+                                <span class="price" id="price6">RM 5.00</span>
                                 <span class="stock-label">Stock: <span id="stock6">10</span></span>
                             </div>
                         </div>
@@ -663,7 +663,7 @@
                         <div class="product-info">
                             <h3>Aik Chong Cappuccino</h3>
                             <div class="product-details-row">
-                                <span class="price">RM 5.00</span>
+                                <span class="price" id="price7">RM 5.00</span>
                                 <span class="stock-label">Stock: <span id="stock7">10</span></span>
                             </div>
                         </div>
@@ -768,7 +768,7 @@
     </div>
 
     <script>
-        // State data for all products (Instant Noodles + Drink Powder)
+        // State data produk
         const products = {
             1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
             2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
@@ -778,6 +778,38 @@
             6: { name: "Aik Chong Mocha", price: 5.00, stock: 10, qty: 0, cartQty: 0 },
             7: { name: "Aik Chong Cappuccino", price: 5.00, stock: 10, qty: 0, cartQty: 0 }
         };
+
+        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets (Apps Script)
+        async function fetchSheetData() {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxSzG1Oi0QyrC7fIYns1N94szUKBE7zfSrdpevmtRENMZ35JYTuDikVecgGExhdDsD7/exec';
+            try {
+                const response = await fetch(scriptURL);
+                const data = await response.json();
+                
+                data.forEach(item => {
+                    let id = item.id;
+                    if (products[id]) {
+                        products[id].price = parseFloat(item.price);
+                        products[id].stock = parseInt(item.stock);
+
+                        // Kemas kini paparan harga pada laman web
+                        const priceEl = document.getElementById(`price${id}`);
+                        if (priceEl) priceEl.innerText = `RM ${products[id].price.toFixed(2)}`;
+
+                        // Kemas kini paparan stok pada laman web
+                        const stockEl = document.getElementById(`stock${id}`);
+                        if (stockEl) stockEl.innerText = products[id].stock;
+                    }
+                });
+                console.log("Stok & Harga berjaya dikemaskini dari Google Sheets!");
+            } catch (error) {
+                console.error("Gagal menyambung ke Google Sheets:", error);
+            }
+        }
+
+        // Panggil fungsi tarik data apabila web dibuka (dan ulangi setiap 30 saat jika mahu *live update*)
+        fetchSheetData();
+        setInterval(fetchSheetData, 30000);
 
         // Live Malaysia Date & Time
         function updateMalaysiaDateTime() {
