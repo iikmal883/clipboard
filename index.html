@@ -27,19 +27,42 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorShift 4s ease infinite;
+            display: inline-block;
         }
 
-        /* Jiggle Animation for Title */
+        /* Letter-by-Letter Jiggle Animation */
         @keyframes jiggle {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(-1.5deg) scale(1.02); }
-            75% { transform: rotate(1.5deg) scale(0.98); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-2px) rotate(-3deg); }
+            75% { transform: translateY(2px) rotate(3deg); }
         }
 
-        .animate-jiggle {
+        .jiggle-letter {
             display: inline-block;
             animation: jiggle 0.4s ease-in-out infinite;
         }
+
+        /* Staggered Delay for Each Letter */
+        .jiggle-letter:nth-child(1) { animation-delay: 0.05s; }
+        .jiggle-letter:nth-child(2) { animation-delay: 0.1s; }
+        .jiggle-letter:nth-child(3) { animation-delay: 0.15s; }
+        .jiggle-letter:nth-child(4) { animation-delay: 0.2s; }
+        .jiggle-letter:nth-child(5) { animation-delay: 0.25s; }
+        .jiggle-letter:nth-child(6) { animation-delay: 0.3s; }
+        .jiggle-letter:nth-child(7) { animation-delay: 0.35s; }
+        .jiggle-letter:nth-child(8) { animation-delay: 0.4s; }
+        .jiggle-letter:nth-child(9) { animation-delay: 0.45s; }
+        .jiggle-letter:nth-child(10) { animation-delay: 0.5s; }
+        .jiggle-letter:nth-child(11) { animation-delay: 0.55s; }
+        .jiggle-letter:nth-child(12) { animation-delay: 0.6s; }
+        .jiggle-letter:nth-child(13) { animation-delay: 0.65s; }
+        .jiggle-letter:nth-child(14) { animation-delay: 0.7s; }
+        .jiggle-letter:nth-child(15) { animation-delay: 0.75s; }
+        .jiggle-letter:nth-child(16) { animation-delay: 0.8s; }
+        .jiggle-letter:nth-child(17) { animation-delay: 0.85s; }
+        .jiggle-letter:nth-child(18) { animation-delay: 0.9s; }
+        .jiggle-letter:nth-child(19) { animation-delay: 0.95s; }
+        .jiggle-letter:nth-child(20) { animation-delay: 1.0s; }
 
         /* Background Glitchy 50% Opacity */
         .glitch-bg {
@@ -79,7 +102,10 @@
                 <div class="flex items-center space-x-2.5">
                     <img src="https://i.ibb.co/xSrJcPQp/transparent-malt.png" alt="Ikmal Tech Solution Logo" class="print-logo">
                     <div>
-                        <h1 class="text-sm font-extrabold tracking-wide neon-title animate-jiggle">Ikmal Tech Solution</h1>
+                        <!-- Title with letter-by-letter jiggle markup -->
+                        <h1 class="text-sm font-extrabold tracking-wide neon-title">
+                            <span class="jiggle-letter">I</span><span class="jiggle-letter">k</span><span class="jiggle-letter">m</span><span class="jiggle-letter">a</span><span class="jiggle-letter">l</span>&nbsp;<span class="jiggle-letter">T</span><span class="jiggle-letter">e</span><span class="jiggle-letter">c</span><span class="jiggle-letter">h</span>&nbsp;<span class="jiggle-letter">S</span><span class="jiggle-letter">o</span><span class="jiggle-letter">l</span><span class="jiggle-letter">u</span><span class="jiggle-letter">t</span><span class="jiggle-letter">i</span><span class="jiggle-letter">o</span><span class="jiggle-letter">n</span>
+                        </h1>
                         <p class="text-[10px] text-pink-300/80">Live Cloud Clipboard</p>
                     </div>
                 </div>
