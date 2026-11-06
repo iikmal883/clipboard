@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kedai Ramen</title>
+    <!-- Import Google Font untuk Comic / Handwritten style -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #FFF8EE;
@@ -44,7 +46,7 @@
             margin-bottom: 30px;
         }
 
-        /* Header ditarik rapat ke atas dengan padding 2px */
+        /* Header rapat ke atas (1px / 2px padding) */
         header {
             background-color: var(--light-orange);
             padding: 2px 15px;
@@ -71,17 +73,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 0px;
             flex: 1;
         }
 
+        /* Comic Script Font Style untuk Kedai Ramen */
         .header-title {
-            font-size: 14px;
-            color: var(--dark-orange);
-            font-weight: 800;
-            letter-spacing: 0.8px;
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
             text-align: center;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .title-kedai {
+            color: #5C4033; /* Warna Coklat */
+            display: block;
+        }
+
+        .title-ramen {
+            color: var(--dark-orange); /* Warna Oren */
+            display: block;
+            margin-top: -6px;
         }
 
         /* Aesthetic Date & Time Box */
@@ -474,7 +488,10 @@
                 <img src="https://i.ibb.co/pjBhkBtT/LOGO-KEDAI-RAMEN.png" alt="Logo Kedai Ramen">
             </div>
             <div class="header-center">
-                <div class="header-title">Kedai Ramen</div>
+                <div class="header-title">
+                    <span class="title-kedai">KEDAI</span>
+                    <span class="title-ramen">RAMEN</span>
+                </div>
             </div>
             <div class="time-box">
                 <div class="time-header">
