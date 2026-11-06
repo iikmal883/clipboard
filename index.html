@@ -153,6 +153,23 @@
             padding: 15px;
         }
 
+        /* Category Section Styling */
+        .category-section {
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--dark-orange);
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         /* 2 Column Grid for Products */
         .products-grid {
             display: grid;
@@ -504,89 +521,121 @@
 
         <!-- Content -->
         <div class="content">
-            <!-- 2 Columns Products Grid (4 Ramen Options) -->
-            <div class="products-grid">
-                
-                <!-- Ramen 1 (Buldak Hot Chicken) -->
-                <div class="product-card">
-                    <div class="product-image-box">
-                        <img src="https://i.ibb.co/qFJLBRM2/BULDAK-HOT-CHICKEN.png" alt="Buldak Hot Chicken">
-                    </div>
-                    <div class="product-info">
-                        <h3>Ramen 1 (Hot Chicken)</h3>
-                        <div class="product-details-row">
-                            <span class="price">RM 15.00</span>
-                            <span class="stock-label">Stock: <span id="stock1">10</span></span>
+            
+            <!-- Category 1: Instant Noodle -->
+            <div class="category-section">
+                <div class="category-title">🍜 Instant Noodle</div>
+                <div class="products-grid">
+                    
+                    <!-- Ramen 1 (Buldak Hot Chicken) -->
+                    <div class="product-card">
+                        <div class="product-image-box">
+                            <img src="https://i.ibb.co/qFJLBRM2/BULDAK-HOT-CHICKEN.png" alt="Buldak Hot Chicken">
                         </div>
-                    </div>
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateQty(1, -1)">-</button>
-                        <span class="qty-display" id="qty1">0</span>
-                        <button class="qty-btn" onclick="updateQty(1, 1)">+</button>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(1)">Add to Cart</button>
-                </div>
-
-                <!-- Ramen 2 (Buldak Cheese) -->
-                <div class="product-card">
-                    <div class="product-image-box">
-                        <img src="https://i.ibb.co/dsFvmrTf/BULDAK-CHEESE.png" alt="Buldak Cheese">
-                    </div>
-                    <div class="product-info">
-                        <h3>Ramen 2 (Cheese)</h3>
-                        <div class="product-details-row">
-                            <span class="price">RM 20.00</span>
-                            <span class="stock-label">Stock: <span id="stock2">5</span></span>
+                        <div class="product-info">
+                            <h3>Ramen 1 (Hot Chicken)</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 15.00</span>
+                                <span class="stock-label">Stock: <span id="stock1">10</span></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateQty(2, -1)">-</button>
-                        <span class="qty-display" id="qty2">0</span>
-                        <button class="qty-btn" onclick="updateQty(2, 1)">+</button>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(2)">Add to Cart</button>
-                </div>
-
-                <!-- Ramen 3 (Buldak Original) -->
-                <div class="product-card">
-                    <div class="product-image-box">
-                        <img src="https://i.ibb.co/PZJGJKNH/ORIGINAL.png" alt="Buldak Original">
-                    </div>
-                    <div class="product-info">
-                        <h3>Ramen 3 (Original)</h3>
-                        <div class="product-details-row">
-                            <span class="price">RM 14.00</span>
-                            <span class="stock-label">Stock: <span id="stock3">8</span></span>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(1, -1)">-</button>
+                            <span class="qty-display" id="qty1">0</span>
+                            <button class="qty-btn" onclick="updateQty(1, 1)">+</button>
                         </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(1)">Add to Cart</button>
                     </div>
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateQty(3, -1)">-</button>
-                        <span class="qty-display" id="qty3">0</span>
-                        <button class="qty-btn" onclick="updateQty(3, 1)">+</button>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(3)">Add to Cart</button>
-                </div>
 
-                <!-- Ramen 4 (Buldak Quattro Cheese) -->
-                <div class="product-card">
-                    <div class="product-image-box">
-                        <img src="https://i.ibb.co/Psg8TqBf/QUATTRO-CHEESE.png" alt="Buldak Quattro Cheese">
-                    </div>
-                    <div class="product-info">
-                        <h3>Ramen 4 (Quattro)</h3>
-                        <div class="product-details-row">
-                            <span class="price">RM 22.00</span>
-                            <span class="stock-label">Stock: <span id="stock4">6</span></span>
+                    <!-- Ramen 2 (Buldak Cheese) -->
+                    <div class="product-card">
+                        <div class="product-image-box">
+                            <img src="https://i.ibb.co/dsFvmrTf/BULDAK-CHEESE.png" alt="Buldak Cheese">
                         </div>
+                        <div class="product-info">
+                            <h3>Ramen 2 (Cheese)</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 20.00</span>
+                                <span class="stock-label">Stock: <span id="stock2">5</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(2, -1)">-</button>
+                            <span class="qty-display" id="qty2">0</span>
+                            <button class="qty-btn" onclick="updateQty(2, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(2)">Add to Cart</button>
                     </div>
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateQty(4, -1)">-</button>
-                        <span class="qty-display" id="qty4">0</span>
-                        <button class="qty-btn" onclick="updateQty(4, 1)">+</button>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(4)">Add to Cart</button>
-                </div>
 
+                    <!-- Ramen 3 (Buldak Original) -->
+                    <div class="product-card">
+                        <div class="product-image-box">
+                            <img src="https://i.ibb.co/PZJGJKNH/ORIGINAL.png" alt="Buldak Original">
+                        </div>
+                        <div class="product-info">
+                            <h3>Ramen 3 (Original)</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 14.00</span>
+                                <span class="stock-label">Stock: <span id="stock3">8</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(3, -1)">-</button>
+                            <span class="qty-display" id="qty3">0</span>
+                            <button class="qty-btn" onclick="updateQty(3, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(3)">Add to Cart</button>
+                    </div>
+
+                    <!-- Ramen 4 (Buldak Quattro Cheese) -->
+                    <div class="product-card">
+                        <div class="product-image-box">
+                            <img src="https://i.ibb.co/Psg8TqBf/QUATTRO-CHEESE.png" alt="Buldak Quattro Cheese">
+                        </div>
+                        <div class="product-info">
+                            <h3>Ramen 4 (Quattro)</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 22.00</span>
+                                <span class="stock-label">Stock: <span id="stock4">6</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(4, -1)">-</button>
+                            <span class="qty-display" id="qty4">0</span>
+                            <button class="qty-btn" onclick="updateQty(4, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(4)">Add to Cart</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Category 2: Drink Powder -->
+            <div class="category-section">
+                <div class="category-title">🥤 Drink Powder</div>
+                <div class="products-grid">
+                    
+                    <!-- Drink 1 (Cold Horlicks) -->
+                    <div class="product-card">
+                        <div class="product-image-box" style="background: #FFF3E4; font-weight: bold; color: var(--dark-orange); font-size: 13px;">
+                            ☕ HORLICKS
+                        </div>
+                        <div class="product-info">
+                            <h3>Cold Horlicks (Sejuk)</h3>
+                            <div class="product-details-row">
+                                <span class="price">RM 5.00</span>
+                                <span class="stock-label">Stock: <span id="stock5">15</span></span>
+                            </div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(5, -1)">-</button>
+                            <span class="qty-display" id="qty5">0</span>
+                            <button class="qty-btn" onclick="updateQty(5, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(5)">Add to Cart</button>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Cart Section -->
@@ -679,12 +728,13 @@
     </div>
 
     <script>
-        // State data for 4 products
+        // State data for products including Instant Noodles & Drink Powder
         const products = {
             1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
             2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
             3: { name: "Ramen 3 (Buldak Original)", price: 14.00, stock: 8, qty: 0, cartQty: 0 },
-            4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 22.00, stock: 6, qty: 0, cartQty: 0 }
+            4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 22.00, stock: 6, qty: 0, cartQty: 0 },
+            5: { name: "Cold Horlicks (Sejuk)", price: 5.00, stock: 15, qty: 0, cartQty: 0 }
         };
 
         // Live Malaysia Date & Time
