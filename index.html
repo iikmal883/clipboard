@@ -13,18 +13,90 @@
             -webkit-box-orient: vertical;  
             overflow: hidden;
         }
+
+        /* Animasi Gradient Bergerak untuk Tajuk */
+        @keyframes colorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .neon-title {
+            background: linear-gradient(270deg, #ff2a8d, #ff758c, #ffeb3b, #ff2a8d);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorShift 4s ease infinite;
+        }
+
+        /* Animasi Jiggle */
+        @keyframes jiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-1.5deg) scale(1.02); }
+            75% { transform: rotate(1.5deg) scale(0.98); }
+        }
+
+        .animate-jiggle {
+            display: inline-block;
+            animation: jiggle 0.6s ease-in-out infinite;
+        }
+
+        /* Background Glitchy 50% Opacity */
+        .glitch-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(255, 42, 141, 0.15) 0%, rgba(15, 15, 25, 0.95) 80%);
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .glitch-bg::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 1;
+        }
+
+        .print-logo {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 42, 141, 0.6));
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col relative">
+
+    <!-- Background Glitchy Layer -->
+    <div class="glitch-bg"></div>
 
     <!-- Header -->
-    <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-lg font-bold tracking-wide text-purple-400">Ikmal Tech Solution</h1>
-                <p class="text-xs text-slate-400">Live Cloud Clipboard</p>
+    <header class="bg-slate-900/90 border-b border-pink-500/30 p-4 sticky top-0 z-10 backdrop-blur-md shadow-lg shadow-pink-950/40">
+        <div class="max-w-md mx-auto space-y-3">
+            <!-- Top Navigation / Cashflow Button -->
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2.5">
+                    <img src="https://i.ibb.co/xSrJcPQp/transparent-malt.png" alt="Ikmal Tech Solution Logo" class="print-logo">
+                    <div>
+                        <h1 class="text-sm font-extrabold tracking-wide neon-title animate-jiggle">Ikmal Tech Solution</h1>
+                        <p class="text-[10px] text-pink-300/80">Live Cloud Clipboard</p>
+                    </div>
+                </div>
+                
+                <!-- Button ke Cashflow Dashboard -->
+                <a href="https://iikmal883.github.io/malt-cashflow/" class="bg-pink-600/20 hover:bg-pink-600 text-pink-300 hover:text-white border border-pink-500/40 text-xs font-semibold px-3 py-1.5 rounded-lg transition active:scale-95 shadow-sm">
+                    📊 Cashflow
+                </a>
             </div>
-            <span id="syncStatus" class="bg-purple-900/60 text-purple-300 text-xs px-2.5 py-1 rounded-full font-medium border border-purple-700/50">Syncing...</span>
+            
+            <div class="flex justify-between items-center text-xs pt-1 border-t border-pink-500/10">
+                <span class="text-slate-400">Status Sistem:</span>
+                <span id="syncStatus" class="bg-pink-950 text-pink-300 text-[11px] px-2.5 py-0.5 rounded-full font-medium border border-pink-700/50">Syncing...</span>
+            </div>
         </div>
     </header>
 
@@ -32,22 +104,22 @@
     <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4 pb-20">
 
         <!-- Toast Notification -->
-        <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center space-x-2">
+        <div id="toast" class="fixed top-24 left-1/2 transform -translate-x-1/2 bg-pink-600 text-white text-sm px-4 py-2 rounded-full shadow-lg shadow-pink-900/50 opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center space-x-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             <span id="toast-text">Berjaya disalin!</span>
         </div>
 
         <!-- Add New Snippet Form -->
-        <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm space-y-3">
-            <h2 class="text-sm font-semibold text-slate-300">Tambah Quick Text Baru</h2>
+        <div class="bg-slate-900/80 border border-pink-500/30 rounded-xl p-4 shadow-lg shadow-pink-950/20 space-y-3 backdrop-blur-sm">
+            <h2 class="text-sm font-semibold text-pink-300">Tambah Quick Text Baru</h2>
             <div class="space-y-2">
-                <textarea id="snippetInput" rows="2" placeholder="Taip atau paste teks cepat di sini..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 resize-none"></textarea>
+                <textarea id="snippetInput" rows="2" placeholder="Taip atau paste teks cepat di sini..." class="w-full bg-slate-950 border border-pink-500/30 rounded-lg p-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-pink-500 resize-none"></textarea>
                 
                 <div class="flex space-x-2">
-                    <button onclick="pasteFromClipboard()" class="flex-1 bg-slate-700 hover:bg-slate-600 active:scale-[0.98] transition text-purple-300 font-medium text-xs py-2.5 rounded-lg shadow-sm border border-slate-600">
+                    <button onclick="pasteFromClipboard()" class="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-[0.98] transition text-pink-300 font-medium text-xs py-2.5 rounded-lg shadow-sm border border-pink-500/30">
                         📋 Ambil dari Clipboard
                     </button>
-                    <button onclick="addSnippet()" id="saveBtn" class="flex-1 bg-purple-600 hover:bg-purple-500 active:scale-[0.98] transition text-white font-medium text-xs py-2.5 rounded-lg shadow-sm">
+                    <button onclick="addSnippet()" id="saveBtn" class="flex-1 bg-pink-600 hover:bg-pink-500 active:scale-[0.98] transition text-white font-medium text-xs py-2.5 rounded-lg shadow-sm shadow-pink-600/30">
                         Simpan ke Cloud
                     </button>
                 </div>
@@ -57,8 +129,8 @@
         <!-- Snippets List Section -->
         <div class="space-y-2">
             <div class="flex justify-between items-center px-1">
-                <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Cloud Snippets</h2>
-                <span id="countBadge" class="text-xs text-slate-500">0 items</span>
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-pink-400">Cloud Snippets</h2>
+                <span id="countBadge" class="text-xs text-slate-400">0 items</span>
             </div>
             
             <div id="snippetsList" class="space-y-2.5">
@@ -106,28 +178,25 @@
                 const isExpanded = expandedItems.has(actualIndex);
 
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 border border-slate-700/80 rounded-xl p-3.5 space-y-2 shadow-sm hover:border-slate-600 transition";
+                card.className = "bg-slate-900/80 border border-pink-500/20 rounded-xl p-3.5 space-y-2 shadow-sm hover:border-pink-500/50 transition backdrop-blur-sm";
                 
-                // Bahagian utama kad
                 const topRow = document.createElement('div');
                 topRow.className = "flex items-start justify-between space-x-3";
 
                 const textDiv = document.createElement('div');
                 textDiv.className = `flex-1 text-sm text-slate-200 break-words leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`;
-                textDiv.textContent = text; // Selamat dari isu petikan dan HTML
+                textDiv.textContent = text;
 
                 const actionDiv = document.createElement('div');
                 actionDiv.className = "flex items-center space-x-1.5 shrink-0";
 
-                // Butang Copy
                 const copyBtn = document.createElement('button');
-                copyBtn.className = "bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-2.5 py-1.5 rounded-lg transition active:scale-95";
+                copyBtn.className = "bg-pink-600/20 hover:bg-pink-600 text-pink-300 hover:text-white border border-pink-500/30 text-xs font-medium px-2.5 py-1.5 rounded-lg transition active:scale-95";
                 copyBtn.innerText = "Copy";
                 copyBtn.onclick = () => copySnippet(text);
 
-                // Butang Padam
                 const deleteBtn = document.createElement('button');
-                deleteBtn.className = "text-slate-500 hover:text-red-400 p-1.5 transition";
+                deleteBtn.className = "text-slate-500 hover:text-pink-400 p-1.5 transition";
                 deleteBtn.title = "Padam";
                 deleteBtn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`;
                 deleteBtn.onclick = () => deleteSnippet(actualIndex, text);
@@ -137,12 +206,11 @@
                 topRow.appendChild(textDiv);
                 topRow.appendChild(actionDiv);
 
-                // Bahagian Bawah (Toggle Expand)
                 const bottomRow = document.createElement('div');
-                bottomRow.className = "flex justify-between items-center pt-1 border-t border-slate-700/40";
+                bottomRow.className = "flex justify-between items-center pt-1 border-t border-pink-500/10";
 
                 const expandBtn = document.createElement('button');
-                expandBtn.className = "text-xs text-purple-400 hover:text-purple-300 font-medium transition flex items-center space-x-1";
+                expandBtn.className = "text-xs text-pink-400 hover:text-pink-300 font-medium transition flex items-center space-x-1";
                 expandBtn.innerText = isExpanded ? '▲ Tutup (Tunjuk Sikit)' : '▼ Lihat Penuh';
                 expandBtn.onclick = () => toggleExpand(actualIndex);
 
