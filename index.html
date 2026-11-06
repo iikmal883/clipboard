@@ -57,23 +57,24 @@
         .logo-container {
             display: flex;
             align-items: center;
-            height: 48px;
+            height: 56px;
         }
 
         .logo-container img {
-            height: 48px;
+            height: 56px;
             width: auto;
             object-fit: contain;
         }
 
         h1 {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--dark-orange);
             font-weight: 700;
             letter-spacing: 0.5px;
+            display: none; /* Disembunyikan kerana logo besar sudah mewakili jenama */
         }
 
-        /* Live Time Box with Slow Pulsing Green Indicator */
+        /* Enhanced Date & Time Box with Slow Pulsing Green Indicator */
         .time-box {
             font-size: 9px;
             background: white;
@@ -88,6 +89,7 @@
             align-items: flex-end;
             gap: 2px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            min-width: 120px;
         }
 
         .time-indicator-row {
@@ -97,8 +99,8 @@
         }
 
         .pulse-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             background-color: #25D366;
             border-radius: 50%;
             animation: pulseSlow 2s infinite ease-in-out;
@@ -453,9 +455,9 @@
             <div class="time-box" id="malaysiaTimeBox">
                 <div class="time-indicator-row">
                     <span class="pulse-dot"></span>
-                    <span style="font-weight: bold; color: var(--dark-orange);">MY Time</span>
+                    <span id="malaysiaDate" style="font-weight: bold; color: var(--dark-orange);">Loading Date...</span>
                 </div>
-                <span id="malaysiaTime">Loading...</span>
+                <span id="malaysiaTime">Loading Time...</span>
             </div>
         </header>
 
@@ -602,14 +604,23 @@
             2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 }
         };
 
-        // Live Malaysia Time
-        function updateMalaysiaTime() {
-            const options = { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-            const timeString = new Intl.DateTimeFormat('en-US', options).format(new Date());
+        // Live Malaysia Date & Time
+        function updateMalaysiaDateTime() {
+            const now = new Date();
+            
+            // Format Date
+            const dateOptions = { timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
+            
+            // Format Time
+            const timeOptions = { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const timeString = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
+            
+            document.getElementById('malaysiaDate').innerText = dateString;
             document.getElementById('malaysiaTime').innerText = timeString;
         }
-        setInterval(updateMalaysiaTime, 1000);
-        updateMalaysiaTime();
+        setInterval(updateMalaysiaDateTime, 1000);
+        updateMalaysiaDateTime();
 
         // Update quantity selection
         function updateQty(id, change) {
