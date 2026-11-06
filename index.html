@@ -80,7 +80,7 @@
         /* Japanese Brush Style Font untuk Kedai Ramen */
         .header-title {
             font-family: 'Yuji Boku', serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             line-height: 1.1;
             text-align: center;
@@ -190,7 +190,7 @@
         }
 
         .product-info h3 {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-color);
             line-height: 1.2;
             height: 28px;
@@ -204,13 +204,13 @@
         }
 
         .product-info .price {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--dark-orange);
             font-weight: bold;
         }
 
         .stock-label {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--gray-text);
         }
 
@@ -504,7 +504,7 @@
 
         <!-- Content -->
         <div class="content">
-            <!-- 2 Columns Products Grid -->
+            <!-- 2 Columns Products Grid (4 Ramen Options) -->
             <div class="products-grid">
                 
                 <!-- Ramen 1 (Buldak Hot Chicken) -->
@@ -545,6 +545,46 @@
                         <button class="qty-btn" onclick="updateQty(2, 1)">+</button>
                     </div>
                     <button class="add-to-cart-btn" onclick="addToCart(2)">Add to Cart</button>
+                </div>
+
+                <!-- Ramen 3 (Buldak Original) -->
+                <div class="product-card">
+                    <div class="product-image-box">
+                        <img src="https://i.ibb.co/PZJGJKNH/ORIGINAL.png" alt="Buldak Original">
+                    </div>
+                    <div class="product-info">
+                        <h3>Ramen 3 (Original)</h3>
+                        <div class="product-details-row">
+                            <span class="price">RM 14.00</span>
+                            <span class="stock-label">Stock: <span id="stock3">8</span></span>
+                        </div>
+                    </div>
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="updateQty(3, -1)">-</button>
+                        <span class="qty-display" id="qty3">0</span>
+                        <button class="qty-btn" onclick="updateQty(3, 1)">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(3)">Add to Cart</button>
+                </div>
+
+                <!-- Ramen 4 (Buldak Quattro Cheese) -->
+                <div class="product-card">
+                    <div class="product-image-box">
+                        <img src="https://i.ibb.co/Psg8TqBf/QUATTRO-CHEESE.png" alt="Buldak Quattro Cheese">
+                    </div>
+                    <div class="product-info">
+                        <h3>Ramen 4 (Quattro)</h3>
+                        <div class="product-details-row">
+                            <span class="price">RM 22.00</span>
+                            <span class="stock-label">Stock: <span id="stock4">6</span></span>
+                        </div>
+                    </div>
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="updateQty(4, -1)">-</button>
+                        <span class="qty-display" id="qty4">0</span>
+                        <button class="qty-btn" onclick="updateQty(4, 1)">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(4)">Add to Cart</button>
                 </div>
 
             </div>
@@ -639,10 +679,12 @@
     </div>
 
     <script>
-        // State data
+        // State data for 4 products
         const products = {
             1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
-            2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 }
+            2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
+            3: { name: "Ramen 3 (Buldak Original)", price: 14.00, stock: 8, qty: 0, cartQty: 0 },
+            4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 22.00, stock: 6, qty: 0, cartQty: 0 }
         };
 
         // Live Malaysia Date & Time
@@ -719,7 +761,11 @@
 
         // Open Modal Checkout
         function openCheckoutModal() {
-            let totalItems = products[1].cartQty + products[2].cartQty;
+            let totalItems = 0;
+            for (let id in products) {
+                totalItems += products[id].cartQty;
+            }
+
             if (totalItems === 0) {
                 alert("Your cart is empty! Please add items before checkout.");
                 return;
