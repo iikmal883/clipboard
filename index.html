@@ -7,6 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { -webkit-tap-highlight-color: transparent; }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
@@ -63,10 +69,11 @@
     </main>
 
     <script>
-        // URL Apps Script Ikmal sudah disetkan di sini:
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwedgtVkOfsUy1jVCQNW5CEzPNedE9ECPT4jtXPyHN9d429EbnhgD09C6dttkUkEsk--w/exec";
 
         let snippets = [];
+        // Set untuk simpan ID kad mana yang sedang dibuka (expanded)
+        let expandedItems = new Set();
 
         async function fetchSnippets() {
             const statusBadge = document.getElementById('syncStatus');
@@ -97,22 +104,42 @@
 
             reversedSnippets.forEach((text, originalIndex) => {
                 const actualIndex = snippets.length - 1 - originalIndex;
+                const isExpanded = expandedItems.has(actualIndex);
+
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 border border-slate-700/80 rounded-xl p-3.5 flex items-start justify-between space-x-3 shadow-sm hover:border-slate-600 transition";
+                card.className = "bg-slate-800 border border-slate-700/80 rounded-xl p-3.5 space-y-2 shadow-sm hover:border-slate-600 transition";
                 
                 card.innerHTML = `
-                    <div class="flex-1 text-sm text-slate-200 break-words leading-relaxed">${escapeHtml(text)}</div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <button onclick="copySnippet('${escapeQuote(text)}')" class="bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-3 py-1.5 rounded-lg transition active:scale-95">
-                            Copy
-                        </button>
-                        <button onclick="deleteSnippet(${actualIndex}, '${escapeQuote(text)}')" class="text-slate-500 hover:text-red-400 p-1.5 transition" title="Padam">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    <div class="flex items-start justify-between space-x-3">
+                        <div class="flex-1 text-sm text-slate-200 break-words leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}">
+                            ${escapeHtml(text)}
+                        </div>
+                        <div class="flex items-center space-x-1.5 shrink-0">
+                            <button onclick="copySnippet('${escapeQuote(text)}')" class="bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-medium px-2.5 py-1.5 rounded-lg transition active:scale-95">
+                                Copy
+                            </button>
+                            <button onclick="deleteSnippet(${actualIndex}, '${escapeQuote(text)}')" class="text-slate-500 hover:text-red-400 p-1.5 transition" title="Padam">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-1 border-t border-slate-700/40">
+                        <button onclick="toggleExpand(${actualIndex})" class="text-xs text-purple-400 hover:text-purple-300 font-medium transition flex items-center space-x-1">
+                            <span>${isExpanded ? '▲ Tutup (Tunjuk Sikit)' : '▼ Lihat Penuh'}</span>
                         </button>
                     </div>
                 `;
                 listContainer.appendChild(card);
             });
+        }
+
+        function toggleExpand(index) {
+            if (expandedItems.has(index)) {
+                expandedItems.delete(index);
+            } else {
+                expandedItems.add(index);
+            }
+            renderSnippets();
         }
 
         async function pasteFromClipboard() {
