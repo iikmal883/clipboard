@@ -535,8 +535,8 @@
                         <div class="product-info">
                             <h3>Ramen 1 (Hot Chicken)</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price1">RM 15.00</span>
-                                <span class="stock-label">Stock: <span id="stock1">10</span></span>
+                                <span class="price" id="price1">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock1">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -555,8 +555,8 @@
                         <div class="product-info">
                             <h3>Ramen 2 (Cheese)</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price2">RM 20.00</span>
-                                <span class="stock-label">Stock: <span id="stock2">5</span></span>
+                                <span class="price" id="price2">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock2">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -575,8 +575,8 @@
                         <div class="product-info">
                             <h3>Ramen 3 (Original)</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price3">RM 14.00</span>
-                                <span class="stock-label">Stock: <span id="stock3">8</span></span>
+                                <span class="price" id="price3">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock3">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -595,8 +595,8 @@
                         <div class="product-info">
                             <h3>Ramen 4 (Quattro)</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price4">RM 22.00</span>
-                                <span class="stock-label">Stock: <span id="stock4">6</span></span>
+                                <span class="price" id="price4">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock4">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -623,8 +623,8 @@
                         <div class="product-info">
                             <h3>Aik Chong Chocolate</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price5">RM 5.00</span>
-                                <span class="stock-label">Stock: <span id="stock5">12</span></span>
+                                <span class="price" id="price5">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock5">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -643,8 +643,8 @@
                         <div class="product-info">
                             <h3>Aik Chong Mocha</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price6">RM 5.00</span>
-                                <span class="stock-label">Stock: <span id="stock6">10</span></span>
+                                <span class="price" id="price6">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock6">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -663,8 +663,8 @@
                         <div class="product-info">
                             <h3>Aik Chong Cappuccino</h3>
                             <div class="product-details-row">
-                                <span class="price" id="price7">RM 5.00</span>
-                                <span class="stock-label">Stock: <span id="stock7">10</span></span>
+                                <span class="price" id="price7">Loading...</span>
+                                <span class="stock-label">Stock: <span id="stock7">-</span></span>
                             </div>
                         </div>
                         <div class="qty-control">
@@ -768,18 +768,18 @@
     </div>
 
     <script>
-        // State data produk (ID 1 hingga 7)
+        // State data produk dinamik
         const products = {
-            1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 15.00, stock: 10, qty: 0, cartQty: 0 },
-            2: { name: "Ramen 2 (Buldak Cheese)", price: 20.00, stock: 5, qty: 0, cartQty: 0 },
-            3: { name: "Ramen 3 (Buldak Original)", price: 14.00, stock: 8, qty: 0, cartQty: 0 },
-            4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 22.00, stock: 6, qty: 0, cartQty: 0 },
-            5: { name: "Aik Chong Chocolate", price: 5.00, stock: 12, qty: 0, cartQty: 0 },
-            6: { name: "Aik Chong Mocha", price: 5.00, stock: 10, qty: 0, cartQty: 0 },
-            7: { name: "Aik Chong Cappuccino", price: 5.00, stock: 10, qty: 0, cartQty: 0 }
+            1: { name: "Ramen 1 (Buldak Hot Chicken)", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            2: { name: "Ramen 2 (Buldak Cheese)", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            3: { name: "Ramen 3 (Buldak Original)", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            4: { name: "Ramen 4 (Buldak Quattro Cheese)", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            5: { name: "Aik Chong Chocolate", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            6: { name: "Aik Chong Mocha", price: 0, stock: 0, qty: 0, cartQty: 0 },
+            7: { name: "Aik Chong Cappuccino", price: 0, stock: 0, qty: 0, cartQty: 0 }
         };
 
-        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets (Apps Script URL anda)
+        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets
         async function fetchSheetData() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxSzG1Oi0QyrC7fIYns1N94szUKBE7zfSrdpevmtRENMZ35JYTuDikVecgGExhdDsD7/exec';
             try {
@@ -807,7 +807,7 @@
             }
         }
 
-        // Panggil fungsi tarik data apabila web dibuka dan ulang setiap 30 saat
+        // Panggil fungsi tarik data apabila web dibuka
         fetchSheetData();
         setInterval(fetchSheetData, 30000);
 
