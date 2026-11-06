@@ -7,7 +7,6 @@
     <!-- Tailwind CSS for modern mobile-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Smooth transitions and mobile feel */
         body {
             -webkit-tap-highlight-color: transparent;
         }
@@ -29,7 +28,7 @@
     <!-- Main Container -->
     <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4 pb-20">
 
-        <!-- Toast Notification (Hidden by default) -->
+        <!-- Toast Notification -->
         <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center space-x-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             <span id="toast-text">Copied to clipboard!</span>
@@ -37,12 +36,21 @@
 
         <!-- Add New Snippet Form -->
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm space-y-3">
-            <h2 class="text-sm font-semibold text-slate-300">Add New Quick Text</h2>
+            <h2 class="text-sm font-semibold text-slate-300">Tambah Quick Text Baru</h2>
             <div class="space-y-2">
-                <textarea id="snippetInput" rows="2" placeholder="Type or paste quick reply text here..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 resize-none"></textarea>
-                <button onclick="addSnippet()" class="w-full bg-purple-600 hover:bg-purple-500 active:scale-[0.98] transition text-white font-medium text-sm py-2.5 rounded-lg shadow-sm">
-                    Save Snippet
-                </button>
+                <textarea id="snippetInput" rows="2" placeholder="Taip atau paste teks cepat di sini..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 resize-none"></textarea>
+                
+                <div class="flex space-x-2">
+                    <!-- Butang Auto-Paste dari Clipboard Phone -->
+                    <button onclick="pasteFromClipboard()" class="flex-1 bg-slate-700 hover:bg-slate-600 active:scale-[0.98] transition text-purple-300 font-medium text-xs py-2.5 rounded-lg shadow-sm border border-slate-600">
+                        📋 Ambil dari Clipboard
+                    </button>
+                    
+                    <!-- Butang Simpan -->
+                    <button onclick="addSnippet()" class="flex-1 bg-purple-600 hover:bg-purple-500 active:scale-[0.98] transition text-white font-medium text-xs py-2.5 rounded-lg shadow-sm">
+                        Simpan Snippet
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -54,7 +62,7 @@
             </div>
             
             <div id="snippetsList" class="space-y-2.5">
-                <!-- Dynamically injected items will appear here -->
+                <!-- Dynamically injected items -->
             </div>
         </div>
 
@@ -62,7 +70,6 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // Default initial snippets if storage is empty
         const defaultSnippets = [
             "Hello! Welcome to Ikmal Tech Solution. How can I help with your laptop today?",
             "RM50 deposit received, thank you! We will proceed with the repair.",
@@ -106,12 +113,24 @@
             });
         }
 
+        // Fungsi ambil teks dari clipboard phone secara terus
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    document.getElementById('snippetInput').value = text;
+                }
+            } catch (err) {
+                alert('Pelayar web menyekat akses automatik. Sila tap lama-lama pada ruang teks di atas dan pilih "Paste".');
+            }
+        }
+
         function addSnippet() {
             const input = document.getElementById('snippetInput');
             const text = input.value.trim();
             if (!text) return;
 
-            snippets.unshift(text); // Add to the top
+            snippets.unshift(text);
             saveToLocalStorage();
             input.value = '';
             renderSnippets();
@@ -125,8 +144,6 @@
 
         function copySnippet(index) {
             const textToCopy = snippets[index];
-            
-            // Modern clipboard API fallback
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     showToast();
@@ -141,7 +158,7 @@
         function fallbackCopy(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
-            textarea.style.position = 'fixed'; // Avoid scrolling to bottom
+            textarea.style.position = 'fixed';
             document.body.appendChild(textarea);
             textarea.focus();
             textarea.select();
@@ -168,8 +185,9 @@
             return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // Initial render on load
-        renderSnippets();
+        (function() {
+            renderSnippets();
+        })();
     </script>
 </body>
 </html>
