@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kedai Ramen</title>
     <!-- Import Google Font bertema Japanese style (Yuji Boku / Brush font) & Font moden untuk jam -->
-    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #FFF8EE;
@@ -25,8 +25,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Latar Belakang Meriah - Corak Dot Lembut */
         body {
             background-color: var(--bg-color);
+            background-image: radial-gradient(#F0D5C0 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
             color: var(--text-color);
             padding: 15px;
             display: flex;
@@ -40,7 +43,7 @@
             max-width: 480px;
             background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(232, 93, 4, 0.08);
+            box-shadow: 0 10px 30px rgba(232, 93, 4, 0.12);
             overflow: hidden;
             border: 1px solid var(--border-color);
             margin-bottom: 30px;
@@ -132,7 +135,8 @@
         }
 
         .time-box:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(232, 93, 4, 0.15);
         }
 
         .time-header {
@@ -174,40 +178,39 @@
             letter-spacing: 0.5px;
         }
 
-        /* Live Visitor Indicator */
-        .live-indicator-container {
+        /* ------------------------------------------- */
+        /* Banner Eksklusif KKP Pagoh (Menggantikan Live Visitor) */
+        /* ------------------------------------------- */
+        .exclusive-banner-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-top: 5px;
         }
 
-        .live-indicator {
-            background: rgba(255, 235, 238, 0.9);
-            border: 1px solid #FFCDD2;
-            color: #D32F2F;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
+        .exclusive-banner {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFB703 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.1);
-            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.4);
+            letter-spacing: 0.5px;
+            animation: floatBanner 3s ease-in-out infinite;
+            border: 2px solid #FFF;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        .live-dot-red {
-            width: 7px;
-            height: 7px;
-            background-color: #F44336;
-            border-radius: 50%;
-            animation: pulseRed 1.5s infinite;
-        }
-
-        @keyframes pulseRed {
-            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.6); }
-            70% { box-shadow: 0 0 0 6px rgba(244, 67, 54, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        /* Animasi Terapung */
+        @keyframes floatBanner {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(255, 140, 66, 0.6); }
+            100% { transform: translateY(0px); }
         }
 
         /* Main Content */
@@ -236,36 +239,55 @@
         .products-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
+        /* Kesan Hover & Cantik pada Card Produk */
         .product-card {
             background: #FAFAFA;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(232, 93, 4, 0.15);
+            border-color: var(--accent-orange);
+            background: #FFFFFF;
         }
 
         .product-image-box {
             width: 100%;
             height: 100px;
             background: white;
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border-color);
             padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-image-box {
+            border-color: var(--accent-orange);
         }
 
         .product-image-box img {
             max-height: 100%;
             max-width: 100%;
             object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image-box img {
+            transform: scale(1.05);
         }
 
         .product-info h3 {
@@ -274,6 +296,7 @@
             line-height: 1.2;
             height: 28px;
             overflow: hidden;
+            font-weight: 700;
         }
 
         .product-details-row {
@@ -283,14 +306,17 @@
         }
 
         .product-info .price {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--dark-orange);
-            font-weight: bold;
+            font-weight: 800;
         }
 
         .stock-label {
             font-size: 9px;
             color: var(--gray-text);
+            background: #EEEEEE;
+            padding: 2px 6px;
+            border-radius: 10px;
         }
 
         /* Quantity Controls */
@@ -300,7 +326,7 @@
             justify-content: space-between;
             background: white;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 3px 6px;
         }
 
@@ -310,34 +336,49 @@
             color: var(--dark-orange);
             width: 24px;
             height: 24px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
             font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .qty-btn:active {
+            transform: scale(0.85);
+            background: var(--accent-orange);
+            color: white;
         }
 
         .qty-display {
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             width: 25px;
             text-align: center;
         }
 
+        /* Butang Add to Cart Melantun */
         .add-to-cart-btn {
             background-color: var(--accent-orange);
             color: white;
             border: none;
-            padding: 7px;
-            border-radius: 6px;
-            font-weight: 600;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
             font-size: 11px;
-            transition: 0.2s;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 10px rgba(255, 140, 66, 0.3);
         }
 
         .add-to-cart-btn:hover {
             background-color: var(--dark-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(232, 93, 4, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            transform: scale(0.95) translateY(0);
         }
 
         /* Cart Summary Section */
@@ -360,25 +401,27 @@
             font-size: 12px;
             margin-bottom: 5px;
             color: var(--gray-text);
+            padding: 4px 0;
+            border-bottom: 1px solid #FAFAFA;
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 800;
             color: var(--text-color);
             margin: 10px 0;
             border-top: 1px solid var(--border-color);
-            padding-top: 6px;
+            padding-top: 8px;
         }
 
         .checkout-btn {
             background-color: #25D366;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             font-weight: bold;
             width: 100%;
             cursor: pointer;
@@ -386,59 +429,71 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            transition: 0.2s;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
 
         .checkout-btn:hover {
             background-color: #1EBE5D;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .checkout-btn:active {
+            transform: scale(0.98);
         }
 
         /* Floating Cart Button */
         .floating-cart {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--dark-orange);
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #FF8C42 0%, #E85D04 100%);
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 20px rgba(232, 93, 4, 0.4);
             cursor: pointer;
             z-index: 99;
-            transition: transform 0.2s;
-            border: 2px solid white;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid white;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .floating-cart:active {
-            transform: scale(0.92);
+            transform: scale(0.9);
         }
 
         .floating-cart svg {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             fill: white;
         }
 
         .cart-badge {
             position: absolute;
-            top: 2px;
-            right: 2px;
+            top: -2px;
+            right: -2px;
             background: #25D366;
             color: white;
-            font-size: 10px;
-            font-weight: bold;
-            width: 20px;
-            height: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         /* Modal Popup */
@@ -448,7 +503,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -460,19 +516,19 @@
             background: white;
             width: 100%;
             max-width: 400px;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
             border: 1px solid var(--border-color);
             max-height: 90vh;
             overflow-y: auto;
         }
 
         .modal-header {
-            font-size: 15px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 800;
             color: var(--dark-orange);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -481,80 +537,99 @@
         .close-modal {
             background: none;
             border: none;
-            font-size: 18px;
+            font-size: 22px;
             cursor: pointer;
             color: var(--gray-text);
+            transition: 0.2s;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark-orange);
+            transform: scale(1.2);
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
             font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 6px;
             color: var(--text-color);
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 9px;
+            padding: 10px 12px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 12px;
+            border-radius: 10px;
+            font-size: 13px;
             outline: none;
-            background: var(--bg-color);
+            background: #FAFAFA;
+            transition: 0.2s;
         }
 
         .form-group input:focus, .form-group select:focus {
             border-color: var(--accent-orange);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
         }
 
         .delivery-note {
             font-size: 11px;
             color: var(--dark-orange);
             background: var(--light-orange);
-            padding: 8px;
-            border-radius: 6px;
-            margin-top: 6px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 8px;
             display: none;
             border: 1px dashed var(--accent-orange);
+            font-weight: 600;
         }
 
         .modal-footer {
-            margin-top: 15px;
+            margin-top: 20px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn-cancel {
-            background: #E0E0E0;
-            color: #333;
-            border: none;
-            padding: 9px;
-            border-radius: 8px;
+            background: #F5F5F5;
+            color: #555;
+            border: 1px solid #DDD;
+            padding: 12px;
+            border-radius: 10px;
             flex: 1;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        
+        .btn-cancel:hover {
+            background: #E0E0E0;
         }
 
         .btn-confirm {
             background: var(--accent-orange);
             color: white;
             border: none;
-            padding: 9px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             flex: 1;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(255, 140, 66, 0.3);
+            transition: 0.2s;
         }
 
         .btn-confirm:hover {
             background: var(--dark-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(232, 93, 4, 0.4);
         }
     </style>
 </head>
@@ -585,11 +660,10 @@
         <!-- Content -->
         <div class="content">
 
-            <!-- Live Visitor Indicator -->
-            <div class="live-indicator-container">
-                <div class="live-indicator">
-                    <span class="live-dot-red"></span>
-                    <span><span id="visitorCount">5</span> orang sedang melihat menu</span>
+            <!-- Banner Khas untuk warga KKP Pagoh! -->
+            <div class="exclusive-banner-container">
+                <div class="exclusive-banner">
+                    ✨ Khas untuk warga KKP Pagoh! 🍜
                 </div>
             </div>
             
@@ -824,10 +898,10 @@
                 </div>
             </div>
 
-            <div style="margin-top: 12px; font-size: 12px; font-weight: bold; color: var(--dark-orange);">
+            <div style="margin-top: 15px; font-size: 13px; font-weight: 800; color: var(--dark-orange);">
                 Order Confirmation Summary:
             </div>
-            <div id="modalCartSummary" style="font-size: 11px; color: var(--gray-text); margin-top: 4px; background: var(--bg-color); padding: 8px; border-radius: 6px;">
+            <div id="modalCartSummary" style="font-size: 12px; color: var(--gray-text); margin-top: 6px; background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px dashed var(--border-color);">
                 <!-- Summary inserted here secara dinamik -->
             </div>
 
@@ -893,25 +967,6 @@
         setInterval(updateMalaysiaDateTime, 1000);
         updateMalaysiaDateTime();
 
-        // Simulasi Live Visitors
-        function updateLiveVisitors() {
-            const minVisitors = 2;
-            const maxVisitors = 12;
-            const visitorEl = document.getElementById('visitorCount');
-            let currentVisitors = parseInt(visitorEl.innerText);
-
-            if (Math.random() > 0.3) {
-                let change = Math.floor(Math.random() * 6) - 2; 
-                let newVisitors = currentVisitors + change;
-
-                if (newVisitors < minVisitors) newVisitors = minVisitors + Math.floor(Math.random() * 3);
-                if (newVisitors > maxVisitors) newVisitors = maxVisitors - Math.floor(Math.random() * 2);
-
-                visitorEl.innerText = newVisitors;
-            }
-        }
-        setInterval(updateLiveVisitors, 8000);
-
         // Sistem Troli
         function updateQty(id, change) {
             let newQty = products[id].qty + change;
@@ -926,7 +981,7 @@
 
         function addToCart(id) {
             if (products[id].qty === 0) {
-                alert("Please select a quantity first!");
+                alert("Sila pilih kuantiti terlebih dahulu!");
                 return;
             }
             products[id].cartQty = products[id].qty;
@@ -947,12 +1002,12 @@
                     totalItemsCount += item.cartQty;
                     let subtotal = item.price * item.cartQty;
                     total += subtotal;
-                    html += `<div class="cart-item"><span>• ${item.name} x ${item.cartQty}</span><span>RM ${subtotal.toFixed(2)}</span></div>`;
+                    html += `<div class="cart-item"><span style="font-weight:600; color:#333;">• ${item.name} x ${item.cartQty}</span><span style="font-weight:600;">RM ${subtotal.toFixed(2)}</span></div>`;
                 }
             }
 
             if (!hasItems) {
-                cartList.innerHTML = '<div style="font-size: 12px; color: var(--gray-text);">Cart is empty.</div>';
+                cartList.innerHTML = '<div style="font-size: 12px; color: var(--gray-text); text-align:center; padding: 10px;">Cart is empty.</div>';
             } else {
                 cartList.innerHTML = html;
             }
@@ -974,18 +1029,18 @@
                 if (products[id].cartQty > 0) {
                     let itemTotal = products[id].price * products[id].cartQty;
                     subtotal += itemTotal;
-                    summaryHtml += `• ${products[id].name} x ${products[id].cartQty} = RM ${itemTotal.toFixed(2)}<br>`;
+                    summaryHtml += `<div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>• ${products[id].name} x ${products[id].cartQty}</span> <span>RM ${itemTotal.toFixed(2)}</span></div>`;
                 }
             }
 
             const method = document.getElementById('deliveryMethod').value;
             if (method === 'COD') {
-                summaryHtml += `<span style="color: var(--dark-orange);">• Caj Penghantaran (COD) = RM 0.50</span><br>`;
+                summaryHtml += `<div style="display:flex; justify-content:space-between; color: var(--dark-orange); font-weight:700; margin-top:8px;"><span>• Caj Penghantaran (COD)</span> <span>RM 0.50</span></div>`;
                 subtotal += 0.50;
             }
 
-            summaryHtml += `<hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 6px 0;">`;
-            summaryHtml += `<div style="font-weight: bold; color: var(--text-color);">Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}</div>`;
+            summaryHtml += `<hr style="border: 0; border-top: 1px dashed #CCC; margin: 10px 0;">`;
+            summaryHtml += `<div style="display:flex; justify-content:space-between; font-size:14px; font-weight: 800; color: var(--text-color);"><span>Jumlah Keseluruhan:</span> <span>RM ${subtotal.toFixed(2)}</span></div>`;
             
             document.getElementById('modalCartSummary').innerHTML = summaryHtml;
         }
@@ -997,7 +1052,7 @@
             }
 
             if (totalItems === 0) {
-                alert("Your cart is empty! Please add items before checkout.");
+                alert("Troli anda kosong! Sila tambah pesanan sebelum checkout.");
                 return;
             }
 
@@ -1040,16 +1095,16 @@
             const block = document.getElementById('custBlock').value.trim();
 
             if (!name || !phone || !payment || !method) {
-                alert("Please fill in all required fields (Name, Phone, Payment Method, and Delivery Method).");
+                alert("Sila isi semua butiran yang diperlukan (Nama, Nombor Telefon, Pembayaran, dan Penghantaran).");
                 return;
             }
 
             if (method === 'COD' && !block) {
-                alert("Please fill in your Block number for COD.");
+                alert("Sila masukkan nombor Blok/Bilik untuk COD.");
                 return;
             }
 
-            let orderText = `Halo Kedai Ramen! Saya ingin membuat pesanan berikut:\n`;
+            let orderText = `Halo Kedai Ramen! Saya ingin membuat pesanan berikut:\n\n`;
             let subtotal = 0;
 
             for (let id in products) {
@@ -1064,11 +1119,12 @@
             if (method === 'COD') {
                 deliveryText += ` (${block})`;
                 subtotal += 0.50; 
+                orderText += `• Caj Penghantaran COD = RM 0.50\n`;
             } else if (method === 'Pickup') {
                 deliveryText += ` (Meet at DOBI BLOK A12)`;
             }
 
-            orderText += `\nCustomer Name: ${name}\nPhone: ${phone}\nPayment Method: ${payment}\nKaedah penghantaran: ${deliveryText}\n*Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}*\n\nTerima kasih! Sila sahkan pesanan saya.`;
+            orderText += `\n*Butiran Pelanggan:*\nNama: ${name}\nTelefon: ${phone}\nPembayaran: ${payment}\nPenghantaran: ${deliveryText}\n\n*Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}*\n\nTerima kasih! Sila sahkan pesanan saya.`;
 
             const waNumber = "60172150138";
             const encodedUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(orderText)}`;
