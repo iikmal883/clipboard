@@ -795,8 +795,8 @@
         </div>
     </div>
 
-    <script>
-        // State data produk dinamik berasaskan ID 1 hingga 7 - Dikemas kini dengan (1 Sachet)
+   <script>
+        // State data produk dinamik berasaskan ID 1 hingga 7
         const products = {
             1: { name: "Hot Chicken (1 Pack)", price: 0, stock: 0, qty: 0, cartQty: 0 },
             2: { name: "Cheese (1 Pack)", price: 0, stock: 0, qty: 0, cartQty: 0 },
@@ -835,17 +835,14 @@
             }
         }
 
-        // Panggil fungsi tarik data apabila web dibuka
         fetchSheetData();
         setInterval(fetchSheetData, 30000);
 
         // Live Malaysia Date & Time
         function updateMalaysiaDateTime() {
             const now = new Date();
-            
             const dateOptions = { timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: 'short', day: 'numeric' };
             const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
-            
             const timeOptions = { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const timeString = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
             
@@ -855,7 +852,6 @@
         setInterval(updateMalaysiaDateTime, 1000);
         updateMalaysiaDateTime();
 
-        // Update quantity selection
         function updateQty(id, change) {
             let newQty = products[id].qty + change;
             if (newQty < 0) newQty = 0;
@@ -867,7 +863,6 @@
             document.getElementById(`qty${id}`).innerText = newQty;
         }
 
-        // Add to cart action
         function addToCart(id) {
             if (products[id].qty === 0) {
                 alert("Please select a quantity first!");
@@ -877,7 +872,6 @@
             renderCart();
         }
 
-        // Render Cart Summary
         function renderCart() {
             const cartList = document.getElementById('cartItemsList');
             let html = '';
@@ -906,12 +900,38 @@
             document.getElementById('cartBadge').innerText = totalItemsCount;
         }
 
-        // Scroll to cart section
         function scrollToCart() {
             document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Open Modal Checkout
+        // FUNGSI BARU: Kemas kini paparan summary di dalam Modal (dinamik dengan COD charge)
+        function updateModalSummary() {
+            let summaryHtml = '';
+            let subtotal = 0;
+
+            // Masukkan produk
+            for (let id in products) {
+                if (products[id].cartQty > 0) {
+                    let itemTotal = products[id].price * products[id].cartQty;
+                    subtotal += itemTotal;
+                    summaryHtml += `• ${products[id].name} x ${products[id].cartQty} = RM ${itemTotal.toFixed(2)}<br>`;
+                }
+            }
+
+            // Masukkan caj COD jika COD dipilih
+            const method = document.getElementById('deliveryMethod').value;
+            if (method === 'COD') {
+                summaryHtml += `<span style="color: var(--dark-orange);">• Caj Penghantaran (COD) = RM 0.50</span><br>`;
+                subtotal += 0.50;
+            }
+
+            // Masukkan jumlah keseluruhan
+            summaryHtml += `<hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 6px 0;">`;
+            summaryHtml += `<div style="font-weight: bold; color: var(--text-color);">Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}</div>`;
+            
+            document.getElementById('modalCartSummary').innerHTML = summaryHtml;
+        }
+
         function openCheckoutModal() {
             let totalItems = 0;
             for (let id in products) {
@@ -923,13 +943,12 @@
                 return;
             }
 
-            let summaryHtml = '';
-            for (let id in products) {
-                if (products[id].cartQty > 0) {
-                    summaryHtml += `• ${products[id].name} x ${products[id].cartQty} = RM ${(products[id].price * products[id].cartQty).toFixed(2)}<br>`;
-                }
-            }
-            document.getElementById('modalCartSummary').innerHTML = summaryHtml;
+            // Reset pilihan Delivery Method setiap kali modal dibuka supaya summary tepat
+            document.getElementById('deliveryMethod').value = "";
+            document.getElementById('pickupNote').style.display = 'none';
+            document.getElementById('codFields').style.display = 'none';
+
+            updateModalSummary(); // Panggil fungsi kemas kini summary
             document.getElementById('checkoutModal').style.display = 'flex';
         }
 
@@ -937,7 +956,7 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
-        // Handle delivery option change
+        // KEMAS KINI: Handle delivery option change untuk panggil updateModalSummary()
         function handleDeliveryChange() {
             const method = document.getElementById('deliveryMethod').value;
             const pickupNote = document.getElementById('pickupNote');
@@ -953,9 +972,10 @@
                 pickupNote.style.display = 'none';
                 codFields.style.display = 'none';
             }
+
+            updateModalSummary(); // Auto-update summary bila pilihan bertukar
         }
 
-        // Send to WhatsApp format
         function sendToWhatsApp() {
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
