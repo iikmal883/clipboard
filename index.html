@@ -46,7 +46,7 @@
             margin-bottom: 30px;
         }
 
-        /* Header rapat ke atas */
+        /* Header */
         header {
             background-color: var(--light-orange);
             padding: 5px 15px;
@@ -78,7 +78,7 @@
             position: relative;
         }
 
-        /* Japanese Brush Style Font untuk Kedai Ramen (Diperkemas) */
+        /* Japanese Brush Style Font untuk Kedai Ramen */
         .header-title {
             display: flex;
             flex-direction: column;
@@ -90,7 +90,7 @@
             font-family: 'Yuji Boku', serif;
             font-size: 16px;
             font-weight: 700;
-            color: #5C4033; /* Warna Coklat */
+            color: #5C4033;
             letter-spacing: 2px;
         }
 
@@ -98,12 +98,11 @@
             font-family: 'Yuji Boku', serif;
             font-size: 28px;
             font-weight: 700;
-            color: var(--dark-orange); /* Warna Oren */
+            color: var(--dark-orange);
             margin-top: -6px;
             text-shadow: 1px 1px 0px rgba(232, 93, 4, 0.15);
         }
 
-        /* Elemen cop stail Jepun (Hanko) untuk lebih estetik */
         .title-jp {
             font-size: 9px;
             color: white;
@@ -116,7 +115,7 @@
             box-shadow: 1px 2px 4px rgba(211, 47, 47, 0.3);
         }
 
-        /* Aesthetic Date & Time Box (Glassmorphism + Modern) */
+        /* Aesthetic Date & Time Box */
         .time-box {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
@@ -173,6 +172,42 @@
             font-weight: 700;
             color: var(--dark-orange);
             letter-spacing: 0.5px;
+        }
+
+        /* Live Visitor Indicator */
+        .live-indicator-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .live-indicator {
+            background: rgba(255, 235, 238, 0.9);
+            border: 1px solid #FFCDD2;
+            color: #D32F2F;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.1);
+            letter-spacing: 0.3px;
+        }
+
+        .live-dot-red {
+            width: 7px;
+            height: 7px;
+            background-color: #F44336;
+            border-radius: 50%;
+            animation: pulseRed 1.5s infinite;
+        }
+
+        @keyframes pulseRed {
+            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.6); }
+            70% { box-shadow: 0 0 0 6px rgba(244, 67, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
         }
 
         /* Main Content */
@@ -549,6 +584,14 @@
 
         <!-- Content -->
         <div class="content">
+
+            <!-- Live Visitor Indicator -->
+            <div class="live-indicator-container">
+                <div class="live-indicator">
+                    <span class="live-dot-red"></span>
+                    <span><span id="visitorCount">5</span> orang sedang melihat menu</span>
+                </div>
+            </div>
             
             <!-- Category 1: Instant Noodle -->
             <div class="category-section">
@@ -785,7 +828,7 @@
                 Order Confirmation Summary:
             </div>
             <div id="modalCartSummary" style="font-size: 11px; color: var(--gray-text); margin-top: 4px; background: var(--bg-color); padding: 8px; border-radius: 6px;">
-                <!-- Summary inserted here -->
+                <!-- Summary inserted here secara dinamik -->
             </div>
 
             <div class="modal-footer">
@@ -795,8 +838,8 @@
         </div>
     </div>
 
-   <script>
-        // State data produk dinamik berasaskan ID 1 hingga 7
+    <script>
+        // Data Produk
         const products = {
             1: { name: "Hot Chicken (1 Pack)", price: 0, stock: 0, qty: 0, cartQty: 0 },
             2: { name: "Cheese (1 Pack)", price: 0, stock: 0, qty: 0, cartQty: 0 },
@@ -807,7 +850,7 @@
             7: { name: "Aik Chong Cappuccino (1 Sachet)", price: 0, stock: 0, qty: 0, cartQty: 0 }
         };
 
-        // Fungsi untuk tarik data Stok dan Harga dari Google Sheets
+        // Tarik Data Google Sheets
         async function fetchSheetData() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxSzG1Oi0QyrC7fIYns1N94szUKBE7zfSrdpevmtRENMZ35JYTuDikVecgGExhdDsD7/exec';
             try {
@@ -820,16 +863,14 @@
                         products[id].price = parseFloat(item.price);
                         products[id].stock = parseInt(item.stock);
 
-                        // Kemas kini paparan harga pada laman web
                         const priceEl = document.getElementById(`price${id}`);
                         if (priceEl) priceEl.innerText = `RM ${products[id].price.toFixed(2)}`;
 
-                        // Kemas kini paparan stok pada laman web
                         const stockEl = document.getElementById(`stock${id}`);
                         if (stockEl) stockEl.innerText = products[id].stock;
                     }
                 });
-                console.log("Stok & Harga berjaya dikemaskini dari Google Sheets!");
+                console.log("Stok & Harga berjaya dikemaskini!");
             } catch (error) {
                 console.error("Gagal menyambung ke Google Sheets:", error);
             }
@@ -852,6 +893,26 @@
         setInterval(updateMalaysiaDateTime, 1000);
         updateMalaysiaDateTime();
 
+        // Simulasi Live Visitors
+        function updateLiveVisitors() {
+            const minVisitors = 2;
+            const maxVisitors = 12;
+            const visitorEl = document.getElementById('visitorCount');
+            let currentVisitors = parseInt(visitorEl.innerText);
+
+            if (Math.random() > 0.3) {
+                let change = Math.floor(Math.random() * 6) - 2; 
+                let newVisitors = currentVisitors + change;
+
+                if (newVisitors < minVisitors) newVisitors = minVisitors + Math.floor(Math.random() * 3);
+                if (newVisitors > maxVisitors) newVisitors = maxVisitors - Math.floor(Math.random() * 2);
+
+                visitorEl.innerText = newVisitors;
+            }
+        }
+        setInterval(updateLiveVisitors, 8000);
+
+        // Sistem Troli
         function updateQty(id, change) {
             let newQty = products[id].qty + change;
             if (newQty < 0) newQty = 0;
@@ -904,12 +965,11 @@
             document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // FUNGSI BARU: Kemas kini paparan summary di dalam Modal (dinamik dengan COD charge)
+        // Kemaskini Paparan Summary Dalam Modal (Dinamik)
         function updateModalSummary() {
             let summaryHtml = '';
             let subtotal = 0;
 
-            // Masukkan produk
             for (let id in products) {
                 if (products[id].cartQty > 0) {
                     let itemTotal = products[id].price * products[id].cartQty;
@@ -918,14 +978,12 @@
                 }
             }
 
-            // Masukkan caj COD jika COD dipilih
             const method = document.getElementById('deliveryMethod').value;
             if (method === 'COD') {
                 summaryHtml += `<span style="color: var(--dark-orange);">• Caj Penghantaran (COD) = RM 0.50</span><br>`;
                 subtotal += 0.50;
             }
 
-            // Masukkan jumlah keseluruhan
             summaryHtml += `<hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 6px 0;">`;
             summaryHtml += `<div style="font-weight: bold; color: var(--text-color);">Jumlah Keseluruhan: RM ${subtotal.toFixed(2)}</div>`;
             
@@ -943,12 +1001,11 @@
                 return;
             }
 
-            // Reset pilihan Delivery Method setiap kali modal dibuka supaya summary tepat
             document.getElementById('deliveryMethod').value = "";
             document.getElementById('pickupNote').style.display = 'none';
             document.getElementById('codFields').style.display = 'none';
 
-            updateModalSummary(); // Panggil fungsi kemas kini summary
+            updateModalSummary(); 
             document.getElementById('checkoutModal').style.display = 'flex';
         }
 
@@ -956,7 +1013,6 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
-        // KEMAS KINI: Handle delivery option change untuk panggil updateModalSummary()
         function handleDeliveryChange() {
             const method = document.getElementById('deliveryMethod').value;
             const pickupNote = document.getElementById('pickupNote');
@@ -973,7 +1029,7 @@
                 codFields.style.display = 'none';
             }
 
-            updateModalSummary(); // Auto-update summary bila pilihan bertukar
+            updateModalSummary(); 
         }
 
         function sendToWhatsApp() {
